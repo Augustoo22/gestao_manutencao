@@ -1,108 +1,61 @@
-import { FaBuilding, FaTools, FaUsers } from "react-icons/fa";
+import { FaBuilding } from "react-icons/fa";
 import { GrNotes } from "react-icons/gr";
 import { IoMdCheckboxOutline } from "react-icons/io";
-import { MdDashboard, MdForklift } from "react-icons/md";
+import { MdForklift } from "react-icons/md";
 import { Footer } from "./components/footer";
 import { Aside } from "./components/aside";
 import { Card } from "./components/card";
+import { DataTable as MyDataTable } from "./components/datatable";
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { MainChart } from "./components/mainchart";
+import { CardOs } from "./components/cardOs";
 
 export default function Home() {
-  const tableData = [
-    { id: 232321, name: 'Victor', status: 'Aberta' },
-    { id: 233232, name: 'Victor', status: 'Fechada' },
-    { id: 23233, name: 'Victor', status: 'Fechada' },
-    { id: 232321, name: 'Victor', status: 'Aberta' },
-    { id: 233232, name: 'Victor', status: 'Fechada' },
-    { id: 23233, name: 'Victor', status: 'Fechada' },
-    { id: 232321, name: 'Victor', status: 'Aberta' },
-    { id: 233232, name: 'Victor', status: 'Fechada' },
-    { id: 23233, name: 'Victor', status: 'Fechada' },
-    { id: 233232, name: 'Victor', status: 'Fechada' },
-    { id: 23233, name: 'Victor', status: 'Fechada' },
-    { id: 232321, name: 'Victor', status: 'Aberta' },
+  const cards = [
+    { color: "bg-orange-200", qty: "100", text: "Ambientes", icon: <FaBuilding size={48} /> },
+    { color: "bg-blue-200", qty: "100", text: "Equipamentos", icon: <MdForklift size={48} /> },
+    { color: "bg-red-200", qty: "100", text: "O.S. Abertas", icon: <GrNotes size={48} /> },
+    { color: "bg-green-200", qty: "100", text: "O.S. Concluídas", icon: <IoMdCheckboxOutline size={48} /> },
   ];
 
-  const tableColumns = [
-    { header: 'ID O.S', key: 'id' },
-    { header: 'Responsável', key: 'name' },
-    { header: 'Status', key: 'status' },
+  const requisitions = [
+    { idOs: "55555", responsavel: "Victor", status: "Aberta", carro: "Gol 94", completo: "-" },
+    { idOs: "55556", responsavel: "Victor", status: "Fechada", carro: "Vectra 08", completo: "27-jul" },
+    { idOs: "55557", responsavel: "Victor", status: "Aberta", carro: "Golf 2019", completo: "-" },
+    { idOs: "55555", responsavel: "Victor", status: "Aberta", carro: "Gol 94", completo: "-" },
+    { idOs: "55556", responsavel: "Victor", status: "Fechada", carro: "Vectra 08", completo: "27-jul" },
+    { idOs: "55557", responsavel: "Victor", status: "Aberta", carro: "Golf 2019", completo: "-" },
+    { idOs: "55555", responsavel: "Victor", status: "Aberta", carro: "Gol 94", completo: "-" },
+    { idOs: "55556", responsavel: "Victor", status: "Fechada", carro: "Vectra 08", completo: "27-jul" },
+    { idOs: "55557", responsavel: "Victor", status: "Aberta", carro: "Golf 2019", completo: "-" },
   ];
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
-      <div className="flex-1 flex overflow-hidden">
+    <div className="h-screen flex flex-col">
+      <div className="flex-1 flex h-4/5">
         <Aside />
         <main className="flex-1 flex flex-col">
-          <header className="w-full bg-white/40 p-6 text-center">
-            <h1 className="text-4xl font-bold uppercase">Sistema de Gestão de Manutenção</h1>
-          </header>
-          <div className="grid grid-cols-4 gap-4 p-6">
-            <Card
-              color="bg-orange-200"
-              qty="100"
-              text="Ambientes"
-              icon={<FaBuilding size={48} />}
-            />
-            <Card
-              color="bg-blue-200"
-              qty="100"
-              text="Equipamentos"
-              icon={<MdForklift size={48} />}
-            />
-            <Card
-              color="bg-red-200"
-              qty="100"
-              text="O.S. Abertas"
-              icon={<GrNotes size={48} />}
-            />
-            <Card
-              color="bg-green-200"
-              qty="100"
-              text="O.S. Concluídas"
-              icon={<IoMdCheckboxOutline size={48} />}
-            />
-          </div>
-          <div className="p-2 overflow-x-auto">
-            <div className="relative max-h-96 overflow-y-auto">
-              <table className="min-w-full divide-y divide-gray-200 table-fixed">
-                <thead className="bg-gray-50 sticky top-0 z-15">
-                  <tr>
-                    {tableColumns.map((column) => (
-                      <th
-                        key={column.key}
-                        className="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        {column.header}
-                      </th>
-                    ))}
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Ações
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {tableData.map((row, index) => (
-                    <tr key={`${row.id}-${index}`}>
-                      {tableColumns.map((column) => (
-                        <td
-                          key={column.key}
-                          className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-gray-300"
-                        >
-                          {row[column.key]}
-                        </td>
-                      ))}
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-gray-300">
-                        <button className="text-blue-600 hover:text-blue-900">
-                          Editar
-                        </button>
-                        <button className="text-red-600 hover:text-red-900 ml-4">
-                          Excluir
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+          <h1 className="text-4xl font-bold uppercase w-full bg-white/40 p-6 text-center">
+            Sistema de Gestão de Manutenção
+          </h1>
+          <div className="max-h-svh overflow-y-auto">
+            <div className="grid grid-cols-4 gap-4 p-6">
+              {cards.map((props) => (
+                <Card key={props.text} color={props.color} qty={props.qty} text={props.text} icon={props.icon} />
+              ))}
+            </div>
+            <div className="flex gap-2 p-6 pt-1 justify-between">
+            <CardOs height="13rem" />
+            <div className="m-6 mt-0 p-6 bg-white/40 rounded-xl flex-1">
+                <DataTable value={requisitions} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem', minHeight: '15rem' }} className="custom-datatable">
+                  <Column field="idOs" header="ID O.S" style={{ width: '25%' }}></Column>
+                  <Column field="responsavel" header="Responsável" style={{ width: '25%' }}></Column>
+                  <Column field="status" header="Status" style={{ width: '25%' }}></Column>
+                  <Column field="carro" header="Carro" style={{ width: '25%' }}></Column>
+                  <Column field="completo" header="Serviço realizado" style={{ width: '25%' }}></Column>
+                </DataTable>
+              </div>
             </div>
           </div>
         </main>
