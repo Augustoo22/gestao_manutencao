@@ -13,11 +13,11 @@ import { CardOs } from "./components/cardOs";
 
 export default function Home() {
   const cards = [
-    { color: "bg-orange-200", qty: "100", text: "Ambientes", icon: <FaBuilding size={48} /> },
-    { color: "bg-blue-200", qty: "100", text: "Equipamentos", icon: <MdForklift size={48} /> },
-    { color: "bg-red-200", qty: "100", text: "O.S. Abertas", icon: <GrNotes size={48} /> },
-    { color: "bg-green-200", qty: "100", text: "O.S. Concluídas", icon: <IoMdCheckboxOutline size={48} /> },
-  ];
+    { qty: "100", text: "Ambientes", icon: <FaBuilding size={48} /> },
+    { qty: "100", text: "Equipamentos", icon: <MdForklift size={48} /> },
+    { qty: "100", text: "O.S. Abertas", icon: <GrNotes size={48} /> },
+    { qty: "100", text: "O.S. Concluídas", icon: <IoMdCheckboxOutline size={48} /> },
+];
 
   const requisitions = [
     { idOs: "55555", responsavel: "Victor", status: "Aberta", carro: "Gol 94", completo: "-" },
@@ -36,25 +36,32 @@ export default function Home() {
       <div className="flex-1 flex h-4/5">
         <Aside />
         <main className="flex-1 flex flex-col">
-          <h1 className="text-4xl font-bold uppercase w-full bg-white/40 p-6 text-center">
+          <h1 className="text-4xl font-bold uppercase w-full  p-6 text-center">
             Sistema de Gestão de Manutenção
-          </h1>
+           </h1>
           <div className="max-h-svh overflow-y-auto">
             <div className="grid grid-cols-4 gap-4 p-6">
               {cards.map((props) => (
-                <Card key={props.text} color={props.color} qty={props.qty} text={props.text} icon={props.icon} />
+                <Card key={props.text}  qty={props.qty} text={props.text} icon={props.icon} />
               ))}
             </div>
             <div className="flex gap-2 p-6 pt-1 justify-between">
             <CardOs height="13rem" />
-            <div className="m-6 mt-0 p-6 bg-white/40 rounded-xl flex-1">
-                <DataTable value={requisitions} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem', minHeight: '15rem' }} className="custom-datatable">
-                  <Column field="idOs" header="ID O.S" style={{ width: '25%' }}></Column>
-                  <Column field="responsavel" header="Responsável" style={{ width: '25%' }}></Column>
-                  <Column field="status" header="Status" style={{ width: '25%' }}></Column>
-                  <Column field="carro" header="Carro" style={{ width: '25%' }}></Column>
-                  <Column field="completo" header="Serviço realizado" style={{ width: '25%' }}></Column>
-                </DataTable>
+            <div className="m-6 mt-0 p-6 bg-white/80 rounded-xl flex-1">
+            <DataTable 
+                value={requisitions} 
+                paginator 
+                rows={5} 
+                rowsPerPageOptions={[5, 10, 25, 50]} 
+                tableStyle={{ minWidth: '50rem', minHeight: '15rem' }} 
+                className="data-table"
+              >
+                <Column field="idOs" header="ID O.S" style={{ width: '25%' }}></Column>
+                <Column field="responsavel" header="Responsável" style={{ width: '25%' }}></Column>
+                <Column field="status" header="Status" style={{ width: '25%' }}></Column>
+                <Column field="carro" header="Carro" style={{ width: '25%' }}></Column>
+                <Column field="completo" header="Serviço realizado" style={{ width: '25%' }}></Column>
+              </DataTable>
               </div>
             </div>
           </div>

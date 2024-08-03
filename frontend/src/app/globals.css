@@ -4,26 +4,12 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --background-rgb: 237, 237, 237;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: rgb(var(--background-rgb)); /* Cor de fundo sólida */
 }
 
 @layer utilities {
@@ -33,11 +19,10 @@ body {
 }
 
 @layer components {
-
   .data-table th {
     padding: 1rem;
     text-align: left;
-    background-color: white;
+    background-color: #ff0000; /* Cor de fundo para o cabeçalho da tabela */
   }
 
   .data-table td {
@@ -45,9 +30,14 @@ body {
   }
 
   .data-table tr:nth-child(even) {
-    background-color: floralwhite;
+    background-color: #f0f0f0; /* Cor de fundo para linhas pares da tabela */
   }
 
+  .data-table tr:nth-child(odd) {
+    background-color: #ffffff; /* Cor de fundo para linhas ímpares da tabela */
+  }
 
-
+  .data-table tr:hover {
+    background-color: #e0e0e0; /* Cor de fundo para linha ao passar o mouse */
+  }
 }
