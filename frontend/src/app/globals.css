@@ -41,3 +41,12 @@ body {
     background-color: #e0e0e0; /* Cor de fundo para linha ao passar o mouse */
   }
 }
+
+.p-inputtext:focus {
+  border-color: #FF0000; /* Cor da borda quando em foco */
+  box-shadow: 0 0 0 5px rgba(255, 0, 0, 0.3); 
+}
+
+.p-button:focus {
+  box-shadow: 0 0 0 5px rgba(255, 0, 0, 0.3); 
+}
