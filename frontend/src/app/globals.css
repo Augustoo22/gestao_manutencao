@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 237, 237, 237;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background-color: rgb(var(--background-rgb)); /* Cor de fundo sólida */
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer components {
+  .data-table th {
+    padding: 1rem;
+    text-align: left;
+    background-color: #ff0000; /* Cor de fundo para o cabeçalho da tabela */
+  }
+
+  .data-table td {
+    padding: 0.75rem;
+  }
+
+  .data-table tr:nth-child(even) {
+    background-color: #f0f0f0; /* Cor de fundo para linhas pares da tabela */
+  }
+
+  .data-table tr:nth-child(odd) {
+    background-color: #ffffff; /* Cor de fundo para linhas ímpares da tabela */
+  }
+
+  .data-table tr:hover {
+    background-color: #e0e0e0; /* Cor de fundo para linha ao passar o mouse */
+  }
+}
+
+.p-inputtext:focus {
+  border-color: #FF0000; /* Cor da borda quando em foco */
+  box-shadow: 0 0 0 5px rgba(255, 0, 0, 0.3); 
+}
+
+.p-button:focus {
+  box-shadow: 0 0 0 5px rgba(255, 0, 0, 0.3); 
+}
