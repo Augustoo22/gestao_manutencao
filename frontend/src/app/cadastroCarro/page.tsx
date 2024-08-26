@@ -1,4 +1,4 @@
-"use client";  // Garante que o componente seja tratado como um componente do lado do cliente, permitindo o uso de hooks do React.
+"use client";  
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
@@ -29,7 +29,6 @@ export default function CarRegistrationForm() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Adicione aqui a lógica para enviar os dados do formulário.
     console.log('Form data submitted:', formData);
   };
 
@@ -64,10 +63,8 @@ export default function CarRegistrationForm() {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      {/* Painel lateral (aside) */}
       <Aside />
 
-      {/* Formulário */}
       <Box
         component="form"
         onSubmit={handleSubmit}
@@ -76,7 +73,7 @@ export default function CarRegistrationForm() {
           p: 2,
           display: 'flex',
           flexDirection: 'column',
-          '& > :not(style)': { mb: 2, width: '80%' },  // Use `mb` para espaçamento inferior
+          '& > :not(style)': { mb: 2, width: '80%' },  
         }}
         noValidate
         autoComplete="off"

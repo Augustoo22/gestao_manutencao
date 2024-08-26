@@ -13,8 +13,8 @@ export function NavBar() {
         {target: "/tabelaManutencao", text: "Tabela de Manutenção "},
         {target: "/cadastroEquipe", text: "Cadastro Equipe"},
         {target: "/tabelaEquipe", text: "Tabela Equipes"},
-        {target: "", text: "Cadastro Peças"},
-        {target: "", text: "Tabela Peças"},
+        {target: "/cadastroPeca", text: "Cadastro Peças"},
+        {target: "/tabelaPeca", text: "Tabela Peças"},
     ];
 
     return (

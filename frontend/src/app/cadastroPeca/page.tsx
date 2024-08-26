@@ -1,17 +1,18 @@
 "use client";  
+
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import CustomTextField from '../components/customtextfield';  
 import { Aside } from '../components/aside'; 
 import Button from '@mui/material/Button';
 
-export default function TeamRegistrationForm() {
+export default function PartsRegistrationForm() {
   const [formData, setFormData] = React.useState({
-    nomeEquipe: '',
-    liderEquipe: '',
-    numeroMembros: '',
-    dataFormacao: '',
-    areaAtuacao: '',
+    nome: '',
+    codigo: '',
+    categoria: '',
+    quantidadeEstoque: '',
+    fornecedor: '',
   });
 
   const handleChange = (e: { target: { name: string; value: string; }; }) => {
@@ -29,13 +30,21 @@ export default function TeamRegistrationForm() {
 
   const handleClear = () => {
     setFormData({
-      nomeEquipe: '',
-      liderEquipe: '',
-      numeroMembros: '',
-      dataFormacao: '',
-      areaAtuacao: '',
+      nome: '',
+      codigo: '',
+      categoria: '',
+      quantidadeEstoque: '',
+      fornecedor: '',
     });
   };
+
+  const categories = [
+    { value: 'filtros', label: 'Filtros' },
+    { value: 'freios', label: 'Freios' },
+    { value: 'baterias', label: 'Baterias' },
+    { value: 'transmissao', label: 'Transmissão' },
+    { value: 'suspensao', label: 'Suspensão' },
+  ];
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -55,47 +64,43 @@ export default function TeamRegistrationForm() {
         autoComplete="off"
       >
         <CustomTextField
-          id="nomeEquipe"
-          label="Nome da Equipe"
-          name="nomeEquipe"
-          value={formData.nomeEquipe}
+          id="nome"
+          label="Nome da Peça"
+          name="nome"
+          value={formData.nome}
           onChange={handleChange}
           options={undefined}
         />
         <CustomTextField
-          id="liderEquipe"
-          label="Líder da Equipe"
-          name="liderEquipe"
-          value={formData.liderEquipe}
+          id="codigo"
+          label="Código da Peça"
+          name="codigo"
+          value={formData.codigo}
           onChange={handleChange}
           options={undefined}
         />
         <CustomTextField
-          id="numeroMembros"
-          label="Número de Membros"
-          name="numeroMembros"
-          value={formData.numeroMembros}
+          id="categoria"
+          label="Categoria"
+          name="categoria"
+          value={formData.categoria}
           onChange={handleChange}
+          options={categories}
+        />
+        <CustomTextField
+          id="quantidadeEstoque"
+          label="Quantidade em Estoque"
+          name="quantidadeEstoque"
           type="number"
-          options={undefined}
-        />
-        <CustomTextField
-          id="dataFormacao"
-          label="Data de Formação"
-          name="dataFormacao"
-          type="date"
-          value={formData.dataFormacao}
+          value={formData.quantidadeEstoque}
           onChange={handleChange}
-          InputLabelProps={{
-            shrink: true,
-          }}
           options={undefined}
         />
         <CustomTextField
-          id="areaAtuacao"
-          label="Área de Atuação"
-          name="areaAtuacao"
-          value={formData.areaAtuacao}
+          id="fornecedor"
+          label="Fornecedor"
+          name="fornecedor"
+          value={formData.fornecedor}
           onChange={handleChange}
           options={undefined}
         />

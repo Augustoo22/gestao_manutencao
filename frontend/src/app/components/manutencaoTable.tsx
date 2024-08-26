@@ -10,7 +10,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 
-// Definindo a interface para o tipo de manutenção
 interface Maintenance {
   idManutencao: number;
   carro: string;
@@ -20,7 +19,6 @@ interface Maintenance {
   equipeResponsavel: string;
 }
 
-// Dados iniciais das manutenções
 const initialRows: Maintenance[] = [
   { 
     idManutencao: 1, 
