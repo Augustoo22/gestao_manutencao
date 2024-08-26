@@ -23,20 +23,16 @@ interface User {
 const initialRows: User[] = [
   { id: 1, nomeCompleto: 'João da Silva', username: 'joaodasilva', email: 'joao@exemplo.com', telefone: '1234-5678', cargo: 'Analista', nivelAcesso: 'Supervisor' },
   { id: 2, nomeCompleto: 'Maria Oliveira', username: 'mariaoliveira', email: 'maria@exemplo.com', telefone: '8765-4321', cargo: 'Técnico', nivelAcesso: 'Funcionário' },
-  // Adicione mais usuários conforme necessário
 ];
 
 export default function UsersTable() {
   const [rows, setRows] = React.useState<User[]>(initialRows);
 
   const handleEdit = (id: number) => {
-    // Lógica para editar usuário
     console.log(`Editar usuário com ID: ${id}`);
   };
 
   const handleDelete = (id: number) => {
-    // Lógica para excluir usuário
-    setRows(rows.filter(row => row.id !== id));
     console.log(`Excluir usuário com ID: ${id}`);
   };
 
