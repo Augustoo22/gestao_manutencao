@@ -1,21 +1,17 @@
 "use client";  
-
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import CustomTextField from '../components/customtextfield';
-import { Aside } from '../components/aside';
+import CustomTextField from '../components/customtextfield';  
+import { Aside } from '../components/aside'; 
 import Button from '@mui/material/Button';
 
-export default function RegistrationForm() {
+export default function TeamRegistrationForm() {
   const [formData, setFormData] = React.useState({
-    nomeCompleto: '',
-    username: '',
-    email: '',
-    senha: '',
-    confirmacaoSenha: '',
-    telefone: '',
-    cargo: '',
-    nivelAcesso: '',
+    nomeEquipe: '',
+    liderEquipe: '',
+    numeroMembros: '',
+    dataFormacao: '',
+    areaAtuacao: '',
   });
 
   const handleChange = (e: { target: { name: string; value: string; }; }) => {
@@ -33,21 +29,13 @@ export default function RegistrationForm() {
 
   const handleClear = () => {
     setFormData({
-      nomeCompleto: '',
-      username: '',
-      email: '',
-      senha: '',
-      confirmacaoSenha: '',
-      telefone: '',
-      cargo: '',
-      nivelAcesso: '',
+      nomeEquipe: '',
+      liderEquipe: '',
+      numeroMembros: '',
+      dataFormacao: '',
+      areaAtuacao: '',
     });
   };
-
-  const accessLevels = [
-    { value: 'supervisor', label: 'Supervisor' },
-    { value: 'funcionario', label: 'Funcionário' },
-  ];
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -67,74 +55,51 @@ export default function RegistrationForm() {
         autoComplete="off"
       >
         <CustomTextField
-          id="nomeCompleto"
-          label="Nome Completo"
-          name="nomeCompleto"
-          value={formData.nomeCompleto}
+          id="nomeEquipe"
+          label="Nome da Equipe"
+          name="nomeEquipe"
+          value={formData.nomeEquipe}
           onChange={handleChange}
           options={undefined}
         />
         <CustomTextField
-          id="username"
-          label="Username"
-          name="username"
-          value={formData.username}
+          id="liderEquipe"
+          label="Líder da Equipe"
+          name="liderEquipe"
+          value={formData.liderEquipe}
           onChange={handleChange}
           options={undefined}
         />
         <CustomTextField
-          id="email"
-          label="Email"
-          type="email"
-          name="email"
-          value={formData.email}
+          id="numeroMembros"
+          label="Número de Membros"
+          name="numeroMembros"
+          value={formData.numeroMembros}
           onChange={handleChange}
+          type="number"
           options={undefined}
         />
         <CustomTextField
-          id="senha"
-          label="Senha"
-          type="password"
-          name="senha"
-          value={formData.senha}
+          id="dataFormacao"
+          label="Data de Formação"
+          name="dataFormacao"
+          type="date"
+          value={formData.dataFormacao}
           onChange={handleChange}
+          InputLabelProps={{
+            shrink: true,
+          }}
           options={undefined}
         />
         <CustomTextField
-          id="confirmacaoSenha"
-          label="Confirmação de Senha"
-          type="password"
-          name="confirmacaoSenha"
-          value={formData.confirmacaoSenha}
+          id="areaAtuacao"
+          label="Área de Atuação"
+          name="areaAtuacao"
+          value={formData.areaAtuacao}
           onChange={handleChange}
           options={undefined}
-        />
-        <CustomTextField
-          id="telefone"
-          label="Telefone"
-          name="telefone"
-          value={formData.telefone}
-          onChange={handleChange}
-          options={undefined}
-        />
-        <CustomTextField
-          id="cargo"
-          label="Cargo"
-          name="cargo"
-          value={formData.cargo}
-          onChange={handleChange}
-          options={undefined}
-        />
-        <CustomTextField
-          id="nivelAcesso"
-          label="Nível de Acesso"
-          name="nivelAcesso"
-          options={accessLevels}
-          value={formData.nivelAcesso}
-          onChange={handleChange}
         />
 
-        {/* Botões */}
         <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
           <Button
             variant="contained"

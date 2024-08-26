@@ -16,17 +16,11 @@ interface Car {
   modelo: string;
   anoFabricacao: string;
   numeroPlaca: string;
-  numeroChassi: string;
   cor: string;
-  dataAquisicao: string;
-  localizacao: string;
   status: string;
-  numeroSeguro: string;
-  dataVencimentoSeguro: string;
   ultimaManutencao: string;
   proximaManutencaoProgramada: string;
   observacoes: string;
-  manualProprietario: string;
 }
 
 const initialRows: Car[] = [
@@ -40,20 +34,16 @@ const initialRows: Car[] = [
     status: 'Concluído', ultimaManutencao: '2023-11-15', proximaManutencaoProgramada: '2024-05-15', 
     observacoes: 'Manutenção regular' 
   },
-  // Adicione mais carros conforme necessário
 ];
 
 export default function CarsTable() {
   const [rows, setRows] = React.useState<Car[]>(initialRows);
 
   const handleEdit = (id: number) => {
-    // Lógica para editar carro
     console.log(`Editar carro com ID: ${id}`);
   };
 
   const handleDelete = (id: number) => {
-    // Lógica para excluir carro
-    setRows(rows.filter(row => row.id !== id));
     console.log(`Excluir carro com ID: ${id}`);
   };
 

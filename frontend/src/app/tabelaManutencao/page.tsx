@@ -1,14 +1,16 @@
+"use client";
+
 import * as React from 'react';
 import { Aside } from '../components/aside'; 
-import UsersTable from '../components/userstable'; 
+import MaintenanceTable from '../components/manutencaoTable'; 
 
 const Page = () => {
   return (
     <div className="flex">
       <Aside />
       <main className="flex-1 p-6">
-        <h1 className="text-2xl font-bold mb-4">Gerenciamento de Usuários</h1>
-        <UsersTable />
+        <h1 className="text-2xl font-bold mb-4">Tabela de Manutenção</h1>
+        <MaintenanceTable /> 
       </main>
     </div>
   );

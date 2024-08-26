@@ -14,26 +14,25 @@ interface CustomTextFieldProps {
   type?: string;
   value: string;
   onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-  options?: Option[]; // Para o SELECT
-  // Outros props se necessário
+  options?: Option[];
 }
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   '& .MuiInputLabel-root': {
-    color: 'black', // Cor da label quando o campo não está em foco
+    color: 'black', 
   },
   '& .MuiInputLabel-shrink': {
-    color: 'red', // Cor da label quando o campo está em foco
+    color: 'red', 
   },
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
-      borderColor: 'black', // Cor da borda padrão
+      borderColor: 'black', 
     },
     '&:hover fieldset': {
-      borderColor: 'black', // Cor da borda ao passar o mouse
+      borderColor: 'black', 
     },
     '&.Mui-focused fieldset': {
-      borderColor: 'black', // Cor da borda ao focar
+      borderColor: 'black', 
     },
   },
 }));

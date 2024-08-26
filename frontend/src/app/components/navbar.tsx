@@ -4,11 +4,17 @@ import { MdDashboard, MdForklift } from "react-icons/md";
 
 export function NavBar() {
     const links = [
-        {target: "#", text: "Dashboard", icon: <MdDashboard />},
-        {target: "#", text: "Ambientes", icon: <FaBuilding />},
-        {target: "#", text: "Equipamentos", icon: <MdForklift />},
-        {target: "#", text: "Manutenções", icon: <FaTools />},
-        {target: "#", text: "Usuários", icon: <FaUsers />},
+        {target: "/dashboard", text: "Dashboard"},
+        {target: "/cadastroCarro", text: "Cadastro de Carro"},
+        {target: "/cadastro", text: "Cadastro Usuario"},
+        {target: "/tabelacar", text: "Tabela Carro"},
+        {target: "/tabelausuario", text: "Tabela Usuários"},
+        {target: "/cadastroManutencao", text: "Cadastro de Manutenção"},
+        {target: "/tabelaManutencao", text: "Tabela de Manutenção "},
+        {target: "/cadastroEquipe", text: "Cadastro Equipe"},
+        {target: "/tabelaEquipe", text: "Tabela Equipes"},
+        {target: "/cadastroPeca", text: "Cadastro Peças"},
+        {target: "/tabelaPeca", text: "Tabela Peças"},
     ];
 
     return (
