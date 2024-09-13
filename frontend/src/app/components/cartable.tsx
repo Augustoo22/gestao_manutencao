@@ -34,7 +34,6 @@ const initialRows: Car[] = [
     status: 'Concluído', ultimaManutencao: '2023-11-15', proximaManutencaoProgramada: '2024-05-15', 
     observacoes: 'Manutenção regular' 
   },
-  // Adicione mais carros conforme necessário
 ];
 
 export default function CarsTable() {
