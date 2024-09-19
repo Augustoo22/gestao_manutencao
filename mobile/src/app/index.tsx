@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
-import { HomeScreen } from "../components/home";
-import { DetailsScreen } from "../components/details";
+import { LoginScreen } from "../pages/login";
+import { MenuScreen } from "../pages/menu";
 
 type RootStackParamList = {
   Home: undefined;
@@ -14,8 +14,8 @@ export default function Index() {
   return (
     <NavigationContainer independent={true}>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen}   options={{ headerShown: false }} />
-        <Stack.Screen  name="Details" component={DetailsScreen} />
+        <Stack.Screen name="login" component={LoginScreen}   options={{ headerShown: false }} />
+        <Stack.Screen  name="menu" component={MenuScreen}  options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
