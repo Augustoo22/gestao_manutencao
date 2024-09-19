@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, ImageBackground, Image, StyleSheet } from 'react-native';
 import { IconMenu } from '../components/IconMenu'; // Ajuste o caminho conforme necessário
-
 export function MenuScreen({ navigation }) {
   const [senha, setSenha] = useState('');
   const [email, setEmail] = useState('');
-
   return (
     <ImageBackground
       source={require('../image/backgroundMobile.png')}
@@ -23,7 +21,6 @@ export function MenuScreen({ navigation }) {
                 label={`Gerenciamento\nde Máquinas`}
                 onPress={() => console.log('Clicou no novo menu')}
               />
-
               <IconMenu
                   imageSource={require('../image/registros.png')}
                   label={`Registros`}
@@ -36,7 +33,6 @@ export function MenuScreen({ navigation }) {
                   label={`Manutenção`}
                   onPress={() => console.log('Clicou no novo menu')}
                 />
-
                 <IconMenu
                   imageSource={require('../image/relatorios.png')}
                   label={`Relatórios`}
@@ -66,7 +62,6 @@ export function MenuScreen({ navigation }) {
     </ImageBackground>
   );
 }
-
 const styles = StyleSheet.create({
   background: {
     flex: 1,
@@ -102,22 +97,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignContent:'space-evenly'
   },
-
   fila1: {
     marginTop: 0,
     gap:8,
-
   },
-
   fila2: {
     marginTop: 0,
     gap:21,
-
   },
-
   fila3: {
     marginTop: 0,
     gap:18,
-
   }
 });
