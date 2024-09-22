@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, ImageBackground, Image, StyleSheet } from 'react-native';
 import { IconMenu } from '../components/IconMenu'; // Ajuste o caminho conforme necessário
 export function MenuScreen({ navigation }) {
-  const [senha, setSenha] = useState('');
-  const [email, setEmail] = useState('');
+
   return (
     <ImageBackground
       source={require('../image/backgroundMobile.png')}
-      style={styles.background}
+      className="flex-1"
     >
-      <View style={styles.centerContainer}>
+      <View className="flex-1 justify-center items-center">
         <View style={styles.centerBox}>
           <View style={styles.imageContainer}>
             <Image source={require('../image/logo.png')} style={styles.image} />
@@ -36,7 +35,7 @@ export function MenuScreen({ navigation }) {
                 <IconMenu
                   imageSource={require('../image/relatorios.png')}
                   label={`Relatórios`}
-                  onPress={() => navigation.navigate('relatorio')}
+                  onPress={() => navigation.navigate('relatorioMenu')}
                   />
                 <IconMenu
                   imageSource={require('../image/sair.png')}
@@ -63,15 +62,6 @@ export function MenuScreen({ navigation }) {
   );
 }
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    resizeMode: 'cover',
-  },
-  centerContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   centerBox: {
     justifyContent: 'flex-start',
     alignItems: 'center',
