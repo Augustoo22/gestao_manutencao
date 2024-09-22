@@ -52,7 +52,7 @@ export function MenuScreen({ navigation }) {
                 <IconMenu
                   imageSource={require('../image/gerenciamento_equipe.png')}
                   label={`Gerenciamento\nde Equipes`}
-                  onPress={() => navigation.navigate('gerenciamentoEquipe')}
+                  onPress={() => navigation.navigate('GerenciamentoEquipe')}
                   />
               </View>
           </View>
