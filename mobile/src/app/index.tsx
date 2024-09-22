@@ -7,7 +7,7 @@ import {ControleCustos} from "../pages/ControleCustos"
 import {registros} from "../pages/registros"
 import {relatorio} from "../pages/relatorio"
 import { relatorioMenu } from "../pages/relatorioMenu";
-import {GerenciamentoEquipe} from "../pages/GerenciamentoEquipe"
+import {GerenciamentoEquipe} from "../pages/gerenciamentoEquipe"
 import { MaquinaDetalhes } from "../pages/maquinaDetalhes";
 import { RelatorioDesempenho } from "../pages/relatorioDesempenho";
 import { RelatorioEstoque } from "../pages/RelatorioEstoque";
@@ -15,7 +15,7 @@ import { RegistroMenu } from "../pages/RegistroMenu";
 import { CadastroMaquina } from "../pages/CadastroMaquina";
 import { CadastroManutencao } from "../pages/CadastroManutencao";
 import { CadastroPecas } from "../pages/CadastroPecas";
-import { Manutencao } from "../pages/Manutencao";
+import { Manutencao } from "../pages/manutencao";
 
 
 type RootStackParamList = {
