@@ -1,19 +1,55 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image, Modal, Pressable, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal, Pressable, ScrollView, Alert } from 'react-native';
+import { Image } from 'react-native';
 
-export function MaquinaDetalhes({ route, navigation }) {
-  const { maquina } = route.params;
 
-  // Estados para filtros de relatório
-  const [selectedMachine, setSelectedMachine] = useState('Máquina A');
-  const [selectedPeriod, setSelectedPeriod] = useState('Última semana');
-  const [selectedMaintenanceType, setSelectedMaintenanceType] = useState('Preventiva');
+export function RelatorioDesempenho({ navigation }) {
   const [selectedTeam, setSelectedTeam] = useState('Equipe A');
-
-  // Estados para modais de seleção
+  const [selectedPeriod, setSelectedPeriod] = useState('Última semana');
   const [modalVisible, setModalVisible] = useState(null);
 
-  // Função auxiliar para renderizar opções de seleção em modal
+  const sampleData = {
+    "Equipe A": {
+      "tempoResolucao": "4 horas",
+      "manutencoesRealizadas": 15,
+      "colaboradores": {
+        "João": 6,
+        "Maria": 4,
+        "Carlos": 5,
+      },
+      "pecasMateriais": [
+        { nome: "Parafuso", quantidade: 50 },
+        { nome: "Lubrificante", quantidade: 10 },
+      ],
+    },
+    "Equipe B": {
+      "tempoResolucao": "3 horas",
+      "manutencoesRealizadas": 20,
+      "colaboradores": {
+        "Ana": 8,
+        "Paulo": 7,
+        "Fernanda": 5,
+      },
+      "pecasMateriais": [
+        { nome: "Parafuso", quantidade: 30 },
+        { nome: "Graxa", quantidade: 5 },
+      ],
+    },
+  };
+
+  const gerarRelatorio = () => {
+    const data = sampleData[selectedTeam];
+    Alert.alert(
+      "Relatório Gerado",
+      `Equipe: ${selectedTeam}\nPeríodo: ${selectedPeriod}\n\n` +
+      `Tempo Médio de Resolução: ${data.tempoResolucao}\n` +
+      `Manutenções Realizadas: ${data.manutencoesRealizadas}\n\n` +
+      `Colaboradores:\n${Object.entries(data.colaboradores).map(([colaborador, quantidade]) => `- ${colaborador}: ${quantidade} manutenções`).join('\n')}\n\n` +
+      `Peças e Materiais Utilizados:\n${data.pecasMateriais.map(material => `- ${material.nome}: ${material.quantidade}`).join('\n')}`,
+      [{ text: "OK" }]
+    );
+  };
+
   const renderModal = (options, selectedValue, setSelectedValue, title) => (
     <Modal
       animationType="slide"
@@ -38,21 +74,18 @@ export function MaquinaDetalhes({ route, navigation }) {
     </Modal>
   );
 
-  const gerarRelatorio = () => {
-    Alert.alert(
-      "Relatório Gerado",
-      `Máquina: ${selectedMachine}\nTipo de Manutenção: ${selectedMaintenanceType}\nPeríodo: ${selectedPeriod}\nEquipe: ${selectedTeam}`,
-      [{ text: "OK" }]
-    );
-  };
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{maquina.title}</Text>
-      <Text style={styles.detail}>Status: {maquina.status}</Text>
-      <Text style={styles.detail}>Descrição: {maquina.description}</Text>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.title}>Relatório de Desempenho das Equipes</Text>
 
-      <Text style={styles.sectionTitle}>Filtrar Relatórios:</Text>
+      {/* Seção de filtros */}
+      <Text style={styles.filterLabel}>Equipe:</Text>
+      <TouchableOpacity
+        style={styles.selectButton}
+        onPress={() => setModalVisible('Equipe')}
+      >
+        <Text style={styles.selectButtonText}>{selectedTeam}</Text>
+      </TouchableOpacity>
 
       <Text style={styles.filterLabel}>Período:</Text>
       <TouchableOpacity
@@ -60,22 +93,6 @@ export function MaquinaDetalhes({ route, navigation }) {
         onPress={() => setModalVisible('Período')}
       >
         <Text style={styles.selectButtonText}>{selectedPeriod}</Text>
-      </TouchableOpacity>
-
-      <Text style={styles.filterLabel}>Tipo de Manutenção:</Text>
-      <TouchableOpacity
-        style={styles.selectButton}
-        onPress={() => setModalVisible('Tipo de Manutenção')}
-      >
-        <Text style={styles.selectButtonText}>{selectedMaintenanceType}</Text>
-      </TouchableOpacity>
-
-      <Text style={styles.filterLabel}>Equipe:</Text>
-      <TouchableOpacity
-        style={styles.selectButton}
-        onPress={() => setModalVisible('Equipe')}
-      >
-        <Text style={styles.selectButtonText}>{selectedTeam}</Text>
       </TouchableOpacity>
 
       <Pressable
@@ -92,17 +109,15 @@ export function MaquinaDetalhes({ route, navigation }) {
         />
       </TouchableOpacity>
 
-      {renderModal(['Máquina A', 'Máquina B', 'Máquina C'], selectedMachine, setSelectedMachine, 'Máquina')}
-      {renderModal(['Última semana', 'Último mês', 'Último ano'], selectedPeriod, setSelectedPeriod, 'Período')}
-      {renderModal(['Preventiva', 'Corretiva', 'Preditiva'], selectedMaintenanceType, setSelectedMaintenanceType, 'Tipo de Manutenção')}
       {renderModal(['Equipe A', 'Equipe B'], selectedTeam, setSelectedTeam, 'Equipe')}
-    </View>
+      {renderModal(['Última semana', 'Último mês', 'Último ano'], selectedPeriod, setSelectedPeriod, 'Período')}
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: '#444444',
     padding: 20,
     justifyContent: 'center',
@@ -114,19 +129,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
   },
-  detail: {
-    fontSize: 18,
-    marginBottom: 10,
-    color: '#ccc',
-  },
-  sectionTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginVertical: 20,
-    color: '#fff',
-  },
   filterLabel: {
-    fontSize: 16,
+    fontSize: 18,
     marginBottom: 5,
     color: '#ccc',
   },
@@ -153,16 +157,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     fontWeight: 'bold',
-  },
-  backButton: {
-    position: 'absolute',
-    bottom: 20,
-    alignSelf: 'center',  // Centraliza horizontalmente o botão
-  },
-  backIcon: {
-    width: 40,
-    height: 40,
-    tintColor: '#fff',
   },
   modalView: {
     flex: 1,
@@ -198,5 +192,15 @@ const styles = StyleSheet.create({
   modalCloseText: {
     color: '#fff',
     fontSize: 16,
+  },
+  backButton: {
+    position: 'absolute',
+    bottom: 20,
+    alignSelf: 'center',  
+  },
+  backIcon: {
+    width: 40,
+    height: 40,
+    tintColor: '#fff',
   },
 });

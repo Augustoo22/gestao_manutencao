@@ -3,8 +3,8 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
 export function IconMenu({ imageSource, label, onPress }) {
   return (
-    <TouchableOpacity style={styles.menuContainer} onPress={onPress}>
-      <View style={styles.background}>
+    <TouchableOpacity className="items-center m-2.5" onPress={onPress}>
+      <View className="w-15 h-15 bg-red-600 justify-center items-center rounded-lg">
         <Image source={imageSource} style={styles.image} />
       </View>
       <Text style={styles.label}>{label}</Text>
@@ -13,18 +13,6 @@ export function IconMenu({ imageSource, label, onPress }) {
 }
 
 const styles = StyleSheet.create({
-  menuContainer: {
-    alignItems: 'center',
-    margin: 10,
-  },
-  background: {
-    width: 60,
-    height: 60,
-    backgroundColor: '#d72323',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-  },
   image: {
     width: 60,
     height: 60, 
@@ -33,6 +21,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 10,
     color: '#fff',
-    marginTop: 5, // Adds spacing between the image and the label
+    marginTop: 5,
   },
 });
