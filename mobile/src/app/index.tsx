@@ -32,7 +32,7 @@ export default function Index() {
         <Stack.Screen  name="relatorio" component={relatorio}  options={{ headerShown: false }} />
         <Stack.Screen  name="relatorioMenu" component={relatorioMenu}  options={{ headerShown: false }} />
         <Stack.Screen  name="gerenciamentoEquipe" component={gerenciamentoEquipe}  options={{ headerShown: false }} />
-        <Stack.Screen name="MaquinaDetalhes" component={MaquinaDetalhes} />
+        <Stack.Screen name="MaquinaDetalhes" component={MaquinaDetalhes} options={{ headerShown: false }}/>
 
 
         
