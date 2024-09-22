@@ -30,7 +30,7 @@ export function MenuScreen({ navigation }) {
                 <IconMenu
                   imageSource={require('../image/manutencao.png')}
                   label={`Manutenção`}
-                  onPress={() => navigation.navigate('manutencao')}
+                  onPress={() => navigation.navigate('Manutencao')}
                   />
                 <IconMenu
                   imageSource={require('../image/relatorios.png')}
