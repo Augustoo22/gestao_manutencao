@@ -23,7 +23,7 @@ export function MenuScreen({ navigation }) {
               <IconMenu
                   imageSource={require('../image/registros.png')}
                   label={`Registros`}
-                  onPress={() => navigation.navigate('registros')}
+                  onPress={() => navigation.navigate('RegistroMenu')}
                   />
               </View>
               <View style={styles.fila2}>
