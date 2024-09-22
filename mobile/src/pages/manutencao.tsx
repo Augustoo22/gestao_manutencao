@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TextInput, Alert, TouchableOpacity } from 'react-native'; // Adicionei TouchableOpacity aqui
+import { View, Text, StyleSheet, FlatList, TextInput, Alert, TouchableOpacity, Image } from 'react-native'; // Adicionei Image aqui
 import StatusMaintenanceButton from '../components/StatusMaintenanceButton';
 
 const initialManutencoes = [
@@ -7,7 +7,7 @@ const initialManutencoes = [
   { id: '2', descricao: 'Verificação de freios', status: 'Em andamento', comentarios: [] },
 ];
 
-export function Manutencao() {
+export function Manutencao({ navigation }) { // Adicione a propriedade navigation
   const [manutencoes, setManutencoes] = useState(initialManutencoes);
   const [comentario, setComentario] = useState('');
 
@@ -44,7 +44,6 @@ export function Manutencao() {
         <StatusMaintenanceButton status="Pendente" onPress={() => alterarStatus(item.id, 'Pendente')} />
         <StatusMaintenanceButton status="Em andamento" onPress={() => alterarStatus(item.id, 'Em andamento')} />
         <StatusMaintenanceButton status="Concluída" onPress={() => alterarStatus(item.id, 'Concluída')} />
-        <StatusMaintenanceButton status="Cancelada" onPress={() => alterarStatus(item.id, 'Cancelada')} />
       </View>
 
       <TextInput
@@ -70,7 +69,15 @@ export function Manutencao() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Gerenciamento de Manutenção</Text>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Image
+            source={require('../image/backIcon.png')} // Ajuste o caminho conforme necessário
+            style={styles.backIcon}
+          />
+        </TouchableOpacity>
+        <Text style={styles.title}>Gerenciamento de Manutenção</Text>
+      </View>
       <FlatList
         data={manutencoes}
         renderItem={renderItem}
@@ -86,12 +93,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#444444',
     padding: 20,
   },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#fff',
     textAlign: 'center',
-    marginBottom: 20,
+    flex: 1,
   },
   item: {
     backgroundColor: '#555',
@@ -125,5 +137,10 @@ const styles = StyleSheet.create({
   submitButtonText: {
     color: '#fff',
     fontSize: 16,
+  },
+  backIcon: {
+    width: 50,
+    height: 50,
+    marginRight: 10,
   },
 });
