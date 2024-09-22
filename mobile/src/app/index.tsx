@@ -10,6 +10,7 @@ import {relatorio} from "../pages/relatorio"
 import { relatorioMenu } from "../pages/relatorioMenu";
 import {gerenciamentoEquipe} from "../pages/gerenciamentoEquipe"
 import { MaquinaDetalhes } from "../pages/maquinaDetalhes";
+import { RelatorioDesempenho } from "../pages/relatorioDesempenho";
 
 
 type RootStackParamList = {
@@ -33,6 +34,7 @@ export default function Index() {
         <Stack.Screen  name="relatorioMenu" component={relatorioMenu}  options={{ headerShown: false }} />
         <Stack.Screen  name="gerenciamentoEquipe" component={gerenciamentoEquipe}  options={{ headerShown: false }} />
         <Stack.Screen name="MaquinaDetalhes" component={MaquinaDetalhes} options={{ headerShown: false }}/>
+        <Stack.Screen name="RelatorioDesempenho" component={RelatorioDesempenho} options={{ headerShown: false }}/>
 
 
         
