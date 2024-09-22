@@ -46,8 +46,8 @@ export function MenuScreen({ navigation }) {
               <View style={styles.fila3}>
                 <IconMenu
                   imageSource={require('../image/solicitacoes.png')}
-                  label={`Solicitações`}
-                  onPress={() => navigation.navigate('solicitacoes')}
+                  label={`Custos`}
+                  onPress={() => navigation.navigate('ControleCustos')}
                   /> 
                 <IconMenu
                   imageSource={require('../image/gerenciamento_equipe.png')}
