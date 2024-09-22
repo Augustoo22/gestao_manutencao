@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen } from "../pages/login";
 import { MenuScreen } from "../pages/menu";
 import {Gerenciamento_maquinas} from "../pages/gerenciamentoMaquinas"
-import {solicitacoes} from "../pages/solicitacoes"
+import {ControleCustos} from "../pages/ControleCustos"
 import {registros} from "../pages/registros"
 import {relatorio} from "../pages/relatorio"
 import { relatorioMenu } from "../pages/relatorioMenu";
@@ -32,7 +32,7 @@ export default function Index() {
         <Stack.Screen name="login" component={LoginScreen}   options={{ headerShown: false }} />
         <Stack.Screen  name="menu" component={MenuScreen}  options={{ headerShown: false }} />
         <Stack.Screen  name="gerenciamentoMAquinas" component={Gerenciamento_maquinas}  options={{ headerShown: false }} />
-        <Stack.Screen  name="solicitacoes" component={solicitacoes}  options={{ headerShown: false }} />
+        <Stack.Screen  name="ControleCustos" component={ControleCustos}  options={{ headerShown: false }} />
         <Stack.Screen  name="registros" component={registros}  options={{ headerShown: false }} />
         <Stack.Screen  name="relatorio" component={relatorio}  options={{ headerShown: false }} />
         <Stack.Screen  name="relatorioMenu" component={relatorioMenu}  options={{ headerShown: false }} />
