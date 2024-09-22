@@ -19,25 +19,25 @@ export function MenuScreen({ navigation }) {
               <IconMenu
                 imageSource={require('../image/Gerenciamento_maquinas.png')}
                 label={`Gerenciamento\nde Máquinas`}
-                onPress={() => console.log('Clicou no novo menu')}
-              />
+                onPress={() => navigation.navigate('gerenciamentoMAquinas')}
+                />
               <IconMenu
                   imageSource={require('../image/registros.png')}
                   label={`Registros`}
-                  onPress={() => console.log('Clicou no novo menu')}
-                />
+                  onPress={() => navigation.navigate('registros')}
+                  />
               </View>
               <View style={styles.fila2}>
                 <IconMenu
                   imageSource={require('../image/manutencao.png')}
                   label={`Manutenção`}
-                  onPress={() => console.log('Clicou no novo menu')}
-                />
+                  onPress={() => navigation.navigate('manutencao')}
+                  />
                 <IconMenu
                   imageSource={require('../image/relatorios.png')}
                   label={`Relatórios`}
-                  onPress={() => console.log('Clicou no novo menu')}
-                />
+                  onPress={() => navigation.navigate('relatorio')}
+                  />
                 <IconMenu
                   imageSource={require('../image/sair.png')}
                   label={`Sair`}
@@ -48,13 +48,13 @@ export function MenuScreen({ navigation }) {
                 <IconMenu
                   imageSource={require('../image/solicitacoes.png')}
                   label={`Solicitações`}
-                  onPress={() => console.log('Clicou no novo menu')}
-                /> 
+                  onPress={() => navigation.navigate('solicitacoes')}
+                  /> 
                 <IconMenu
                   imageSource={require('../image/gerenciamento_equipe.png')}
                   label={`Gerenciamento\nde Equipes`}
-                  onPress={() => console.log('Clicou no novo menu')}
-                />
+                  onPress={() => navigation.navigate('gerenciamentoEquipe')}
+                  />
               </View>
           </View>
         </View>
