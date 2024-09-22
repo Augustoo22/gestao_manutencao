@@ -7,17 +7,24 @@ export function relatorioMenu({ navigation }) {
       <Text style={styles.title}>Escolha um Relatório</Text>
 
       <TouchableOpacity
-        style={[styles.button, { backgroundColor: 'red' }]} // Cor personalizada
+        style={[styles.button, { backgroundColor: 'red' }]} 
         onPress={() => navigation.navigate('relatorio')}
       >
         <Text style={styles.buttonText}>Relatório de Manutenções</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.button, { backgroundColor: 'red' }]} // Cor personalizada
-        onPress={() => navigation.navigate('RelatorioEquipe')}
+        style={[styles.button, { backgroundColor: 'red' }]} 
+        onPress={() => navigation.navigate('RelatorioDesempenho')}
       >
         <Text style={styles.buttonText}>Relatório de Desempenho da Equipe</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[styles.button, { backgroundColor: 'red' }]} 
+        onPress={() => navigation.navigate('RelatorioEstoque')}
+      >
+        <Text style={styles.buttonText}>Relatórios de Estoque</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
