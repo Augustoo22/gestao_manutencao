@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { RelatorioItem } from '../components/relatorioItem'; // Novo componente de relatório
 
-export function relatorio({ navigation }) {
+export function Relatorio({ navigation }) {
 
   return (
     <View style={styles.container}>
@@ -13,7 +13,6 @@ export function relatorio({ navigation }) {
         style={styles.logo}
       />
 
-      {/* ScrollView contendo as três seções do relatório */}
       <ScrollView contentContainerStyle={styles.scrollContainer} style={styles.scrollViewBackground}>
         <Text style={styles.sectionTitle}>Manutenções Pendentes</Text>
         

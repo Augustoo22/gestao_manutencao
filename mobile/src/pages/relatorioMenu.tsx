@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
-export function relatorioMenu({ navigation }) {
+export function RelatorioMenu({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Escolha um Relatório</Text>
 
       <TouchableOpacity
         style={[styles.button, { backgroundColor: 'red' }]} 
-        onPress={() => navigation.navigate('relatorio')}
+        onPress={() => navigation.navigate('Relatorio')}
       >
         <Text style={styles.buttonText}>Relatório de Manutenções</Text>
       </TouchableOpacity>
