@@ -4,9 +4,8 @@ import { LoginScreen } from "../pages/login";
 import { MenuScreen } from "../pages/menu";
 import {Gerenciamento_maquinas} from "../pages/gerenciamentoMaquinas"
 import {ControleCustos} from "../pages/ControleCustos"
-import {registros} from "../pages/registros"
-import {relatorio} from "../pages/relatorio"
-import { relatorioMenu } from "../pages/relatorioMenu";
+import {Relatorio} from "../pages/Relatorio"
+import { RelatorioMenu } from "../pages/RelatorioMenu";
 import {GerenciamentoEquipe} from "../pages/gerenciamentoEquipe"
 import { MaquinaDetalhes } from "../pages/maquinaDetalhes";
 import { RelatorioDesempenho } from "../pages/relatorioDesempenho";
@@ -33,9 +32,8 @@ export default function Index() {
         <Stack.Screen  name="menu" component={MenuScreen}  options={{ headerShown: false }} />
         <Stack.Screen  name="gerenciamentoMAquinas" component={Gerenciamento_maquinas}  options={{ headerShown: false }} />
         <Stack.Screen  name="ControleCustos" component={ControleCustos}  options={{ headerShown: false }} />
-        <Stack.Screen  name="registros" component={registros}  options={{ headerShown: false }} />
-        <Stack.Screen  name="relatorio" component={relatorio}  options={{ headerShown: false }} />
-        <Stack.Screen  name="relatorioMenu" component={relatorioMenu}  options={{ headerShown: false }} />
+        <Stack.Screen  name="Relatorio" component={Relatorio}  options={{ headerShown: false }} />
+        <Stack.Screen  name="RelatorioMenu" component={RelatorioMenu}  options={{ headerShown: false }} />
         <Stack.Screen  name="GerenciamentoEquipe" component={GerenciamentoEquipe}  options={{ headerShown: false }} />
         <Stack.Screen name="MaquinaDetalhes" component={MaquinaDetalhes} options={{ headerShown: false }}/>
         <Stack.Screen name="RelatorioDesempenho" component={RelatorioDesempenho} options={{ headerShown: false }}/>
