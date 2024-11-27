@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  backend:
+    image: backend2-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5050:50"
