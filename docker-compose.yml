@@ -1,10 +1,10 @@
 version: '3.8'
 
 services:
-  backend:
-    image: backend-app
+  usuario:
+    image: usuario-app
     build:
-      context: ./backend
+      context: ./usuario
       dockerfile: Dockerfile
     ports:
       - "8080:80"
@@ -13,10 +13,10 @@ services:
     networks:
       - my-network
 
-  backend2:
-    image: backend2-app
+  carro:
+    image: carro-app
     build:
-      context: ./backend2
+      context: ./carro
       dockerfile: Dockerfile
     ports:
       - "5050:50"
