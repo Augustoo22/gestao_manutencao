@@ -1,25 +1,26 @@
 version: '3.8'
 services:
-  postgres-db:
-    image: postgres
-    container_name: postgres-db
+  postgres:
+    image: postgres:16
+    container_name: postgres-container
+    restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: senha123
-      POSTGRES_DB: oficina_carros
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: veiculosdb
     ports:
       - "5432:5432"
 
-  carro-app:
-    image: carro-app
+  app:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: veiculos-api
     ports:
       - "8080:8080"
     depends_on:
-      - postgres-db
+      - postgres
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/oficina_carros
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/veiculosdb
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 123456

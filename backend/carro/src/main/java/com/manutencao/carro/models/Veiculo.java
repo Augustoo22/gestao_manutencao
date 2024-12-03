@@ -1,32 +1,27 @@
-package com.auto.carro.model;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-
+package com.manutencao.carro.models;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class Vehicle {
+public class Veiculo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String marca;
     private String modelo;
-    private String anoFabricacao;
+    private int anoFabricacao;
     private String numeroPlaca;
     private String cor;
+    private String status;
+    private LocalDate ultimaManutencao;
+    private LocalDate proximaManutencaoProgramada;
 
+    @Column(length = 500)
+    private String observacoes;
+
+    // Getters e Setters
     public Long getId() {
         return id;
     }
@@ -51,11 +46,11 @@ public class Vehicle {
         this.modelo = modelo;
     }
 
-    public String getAnoFabricacao() {
+    public int getAnoFabricacao() {
         return anoFabricacao;
     }
 
-    public void setAnoFabricacao(String anoFabricacao) {
+    public void setAnoFabricacao(int anoFabricacao) {
         this.anoFabricacao = anoFabricacao;
     }
 
@@ -106,9 +101,4 @@ public class Vehicle {
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
     }
-
-    private String status;
-    private LocalDate ultimaManutencao;
-    private LocalDate proximaManutencaoProgramada;
-    private String observacoes;
 }
