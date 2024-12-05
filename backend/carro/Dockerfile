@@ -1,14 +1,14 @@
-# Usar uma imagem oficial do OpenJDK
-FROM openjdk:17-jdk-slim
+# Use uma imagem base do Java
+FROM eclipse-temurin:17-jdk-alpine
 
-# Define o diretório de trabalho
+# Diretório de trabalho no contêiner
 WORKDIR /app
 
-# Copia o arquivo jar para o contêiner
+# Copiar o arquivo JAR gerado pelo Maven
 COPY target/carro-0.0.1-SNAPSHOT.jar app.jar
 
-# Expõe a porta da aplicação
+# Expor a porta em que o Spring Boot será executado
 EXPOSE 8080
 
-# Comando para iniciar a aplicação
+# Comando para rodar a aplicação
 ENTRYPOINT ["java", "-jar", "app.jar"]

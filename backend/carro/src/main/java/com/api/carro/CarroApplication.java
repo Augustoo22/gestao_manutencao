@@ -1,4 +1,4 @@
-package com.manutencao.carro;
+package com.api.carro;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

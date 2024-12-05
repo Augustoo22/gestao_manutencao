@@ -1,6 +1,6 @@
-package com.manutencao.carro.repositories;
+package com.api.carro.repository;
 
-import com.manutencao.carro.models.Veiculo;
+import com.api.carro.model.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

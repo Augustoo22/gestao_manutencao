@@ -1,8 +1,9 @@
-package com.manutencao.carro.models;
+package com.api.carro.model;
+
 import jakarta.persistence.*;
-import java.time.LocalDate;
 
 @Entity
+@Table(name = "tb_veiculo")
 public class Veiculo {
 
     @Id
@@ -15,11 +16,14 @@ public class Veiculo {
     private String numeroPlaca;
     private String cor;
     private String status;
-    private LocalDate ultimaManutencao;
-    private LocalDate proximaManutencaoProgramada;
+    private String ultimaManutencao;
+    private String proximaManutencaoProgramada;
 
     @Column(length = 500)
     private String observacoes;
+
+    @Version
+    private Integer version;
 
     // Getters e Setters
     public Long getId() {
@@ -78,19 +82,19 @@ public class Veiculo {
         this.status = status;
     }
 
-    public LocalDate getUltimaManutencao() {
+    public String getUltimaManutencao() {
         return ultimaManutencao;
     }
 
-    public void setUltimaManutencao(LocalDate ultimaManutencao) {
+    public void setUltimaManutencao(String ultimaManutencao) {
         this.ultimaManutencao = ultimaManutencao;
     }
 
-    public LocalDate getProximaManutencaoProgramada() {
+    public String getProximaManutencaoProgramada() {
         return proximaManutencaoProgramada;
     }
 
-    public void setProximaManutencaoProgramada(LocalDate proximaManutencaoProgramada) {
+    public void setProximaManutencaoProgramada(String proximaManutencaoProgramada) {
         this.proximaManutencaoProgramada = proximaManutencaoProgramada;
     }
 
