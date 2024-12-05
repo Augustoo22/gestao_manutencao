@@ -1,4 +1,4 @@
-package com.auto.manutencao;
+package com.api.manutencao;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
