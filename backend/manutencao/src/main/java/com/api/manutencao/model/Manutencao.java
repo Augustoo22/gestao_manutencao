@@ -16,7 +16,7 @@ public class Manutencao {
     private String dataHoraDeFim;
     private String equipeResponsavel;
 
-    // Getters and Setters
+    // Getters e Setters
     public Long getId() {
         return id;
     }

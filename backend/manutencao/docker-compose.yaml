@@ -1,11 +1,12 @@
 version: '3.8'
+
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "9090:9090"
+      - "9090:9090" # Mapear a porta 9090 para a aplicação
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/manutencaodb
       SPRING_DATASOURCE_USERNAME: postgres
@@ -21,7 +22,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123456
     ports:
-      - "5432:5432"
+      - "5432:5432" # Mapear a porta 5432 para o banco de dados
     volumes:
       - db_data:/var/lib/postgresql/data
 
