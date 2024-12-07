@@ -17,7 +17,7 @@ services:
     image: postgres:15
     container_name: postgres-veiculos
     environment:
-      POSTGRES_DB: veiculodb
+      POSTGRES_DB: veiculosdb
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123456
     ports:
