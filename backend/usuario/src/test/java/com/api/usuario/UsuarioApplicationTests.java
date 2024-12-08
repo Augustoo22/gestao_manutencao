@@ -1,4 +1,4 @@
-package com.auto.usuario;
+package com.api.usuario;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
