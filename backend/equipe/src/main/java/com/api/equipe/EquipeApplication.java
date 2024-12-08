@@ -1,4 +1,4 @@
-package com.auto.equipe;
+package com.api.equipe;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

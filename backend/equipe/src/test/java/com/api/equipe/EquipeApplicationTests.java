@@ -1,4 +1,4 @@
-package com.auto.equipe;
+package com.api.equipe;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
