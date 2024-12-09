@@ -7,7 +7,7 @@ services:
     ports:
       - "7070:7070"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/equipesdb
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/pecasdb
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 123456
     depends_on:
@@ -15,13 +15,13 @@ services:
 
   db:
     image: postgres:15
-    container_name: postgres-equipes
+    container_name: postgres-pecas
     environment:
-      POSTGRES_DB: equipesdb
+      POSTGRES_DB: pecasdb
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123456
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
 
