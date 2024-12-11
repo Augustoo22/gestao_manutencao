@@ -13,26 +13,30 @@ interface CustomTextFieldProps {
   label: string;
   type?: string;
   value: string;
+  name?: string;
   onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   options?: Option[];
+  InputLabelProps?: Record<string, any>;
+  multiline?: boolean;
+  rows?: number;
 }
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   '& .MuiInputLabel-root': {
-    color: 'black', 
+    color: 'black',
   },
   '& .MuiInputLabel-shrink': {
-    color: 'red', 
+    color: 'red',
   },
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
-      borderColor: 'black', 
+      borderColor: 'black',
     },
     '&:hover fieldset': {
-      borderColor: 'black', 
+      borderColor: 'black',
     },
     '&.Mui-focused fieldset': {
-      borderColor: 'black', 
+      borderColor: 'black',
     },
   },
 }));
@@ -42,8 +46,12 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
   label,
   type = 'text',
   value,
+  name,
   onChange,
   options,
+  InputLabelProps,
+  multiline = false, // Valor padrão
+  rows, // Propriedade adicional
   ...props
 }) => {
   return (
@@ -52,18 +60,23 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
       label={label}
       type={type}
       value={value}
+      name={name}
       onChange={onChange}
       select={options ? true : false}
+      multiline={multiline} // Passa `multiline` ao TextField
+      rows={rows} // Passa `rows` ao TextField
       fullWidth
       margin="normal"
       variant="outlined"
+      InputLabelProps={InputLabelProps}
       {...props}
     >
-      {options && options.map((option) => (
-        <MenuItem key={option.value} value={option.value}>
-          {option.label}
-        </MenuItem>
-      ))}
+      {options &&
+        options.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
     </StyledTextField>
   );
 };

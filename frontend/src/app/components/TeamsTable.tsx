@@ -9,7 +9,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import { format } from 'date-fns';
 
+// Tipos para colunas e dados
 interface TableColumn {
   id: string;
   label: string;
@@ -25,6 +27,7 @@ interface Team {
   areaAtuacao: string;
 }
 
+// Tipos genéricos para a tabela
 interface GenericTableProps<T> {
   rows: T[];
   columns: TableColumn[];
@@ -32,6 +35,7 @@ interface GenericTableProps<T> {
   onDelete: (id: number) => void;
 }
 
+// Componente Tabela Genérica
 function GenericTable<T extends { id: number }>({
   rows,
   columns,
@@ -55,7 +59,11 @@ function GenericTable<T extends { id: number }>({
           {rows.map((row) => (
             <TableRow key={row.id}>
               {columns.map((column) => (
-                <TableCell key={column.id}>{row[column.id as keyof T]}</TableCell>
+                <TableCell key={column.id}>
+                  {column.id === 'dataFormacao'
+                    ? format(new Date(row[column.id as keyof T] as string), 'dd/MM/yyyy')
+                    : String(row[column.id as keyof T])} {/* Garantir que o valor seja sempre um string */}
+                </TableCell>
               ))}
               <TableCell>
                 <Button
@@ -81,6 +89,7 @@ function GenericTable<T extends { id: number }>({
   );
 }
 
+// Componente da Tabela de Equipes
 export default function TeamsTable() {
   const [rows, setRows] = React.useState<Team[]>([
     { 
@@ -103,10 +112,13 @@ export default function TeamsTable() {
 
   const handleEdit = (id: number) => {
     console.log(`Editar equipe com ID: ${id}`);
+    // Lógica de edição da equipe aqui
   };
 
   const handleDelete = (id: number) => {
     console.log(`Excluir equipe com ID: ${id}`);
+    // Lógica de exclusão da equipe aqui
+    setRows(rows.filter(row => row.id !== id)); // Atualiza a tabela após exclusão
   };
 
   const columns: TableColumn[] = [
