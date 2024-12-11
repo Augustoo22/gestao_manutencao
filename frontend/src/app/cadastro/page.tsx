@@ -73,6 +73,7 @@ export default function RegistrationForm() {
           value={formData.nomeCompleto}
           onChange={handleChange}
           options={undefined}
+          InputLabelProps={{ shrink: true }}
         />
         <CustomTextField
           id="username"
@@ -134,7 +135,6 @@ export default function RegistrationForm() {
           onChange={handleChange}
         />
 
-        {/* Botões */}
         <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
           <Button
             variant="contained"
