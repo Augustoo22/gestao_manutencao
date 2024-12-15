@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import CustomTextField from "../components/customtextfield";
 import { Aside } from "../components/aside";
 import Button from "@mui/material/Button";
-import api from "../../config/axiosConfig";
+import api from "../../config/axiosConfigUsuario";
 
 export default function RegistrationForm() {
   const [formData, setFormData] = useState({
