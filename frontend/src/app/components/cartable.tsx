@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import api from '../../config/axiosConfigCarro';  // Verifique se o caminho está correto para sua configuração Axios
 
 interface Car {
   id: number;
@@ -23,28 +24,40 @@ interface Car {
   observacoes: string;
 }
 
-const initialRows: Car[] = [
-  { 
-    id: 1, marca: 'Toyota', modelo: 'Corolla', anoFabricacao: '2020', numeroPlaca: 'ABC-1234', cor: 'Preto', 
-    status: 'Em Manutenção', ultimaManutencao: '2023-12-01', proximaManutencaoProgramada: '2024-06-01', 
-    observacoes: 'Nenhuma' 
-  },
-  { 
-    id: 2, marca: 'Honda', modelo: 'Civic', anoFabricacao: '2019', numeroPlaca: 'XYZ-5678', cor: 'Branco', 
-    status: 'Concluído', ultimaManutencao: '2023-11-15', proximaManutencaoProgramada: '2024-05-15', 
-    observacoes: 'Manutenção regular' 
-  },
-];
+const CarsTable = () => {
+  const [rows, setRows] = React.useState<Car[]>([]);
 
-export default function CarsTable() {
-  const [rows, setRows] = React.useState<Car[]>(initialRows);
-
-  const handleEdit = (id: number) => {
-    console.log(`Editar carro com ID: ${id}`);
+  // Função para carregar os carros do backend
+  const fetchCars = async () => {
+    try {
+      const response = await api.get('api/veiculos');  // Ajuste a URL conforme necessário
+      setRows(response.data); // Armazenar carros no estado
+    } catch (error) {
+      console.error("Erro ao buscar carros:", error);
+    }
   };
 
-  const handleDelete = (id: number) => {
-    console.log(`Excluir carro com ID: ${id}`);
+  // Carregar carros quando o componente for montado
+  React.useEffect(() => {
+    fetchCars();
+  }, []);
+
+  // Função para editar um carro
+  const handleEdit = (id: number) => {
+    console.log(`Editar carro com ID: ${id}`);
+    // Redirecionar para a página de edição, passando o id, se necessário
+    window.location.href = `/editarCarro?id=${id}`;  // Ajuste conforme sua rota de edição
+  };
+
+  // Função para excluir um carro
+  const handleDelete = async (id: number) => {
+    try {
+      await api.delete(`api/veiculos/${id}`);  // Exclui o carro com o id
+      console.log(`Carro com ID ${id} excluído com sucesso`);
+      setRows(rows.filter((car) => car.id !== id)); // Atualiza a lista de carros
+    } catch (error) {
+      console.error("Erro ao excluir carro:", error);
+    }
   };
 
   return (
@@ -83,7 +96,7 @@ export default function CarsTable() {
                   variant="outlined"
                   onClick={() => handleEdit(car.id)}
                   style={{ marginRight: '10px' }}
-                  href='/cadastroMaquina'
+                  href={`/editarCarro?id=${car.id}`} // Rota para editar o carro
                 >
                   Editar
                 </Button>
@@ -101,4 +114,6 @@ export default function CarsTable() {
       </Table>
     </TableContainer>
   );
-}
+};
+
+export default CarsTable;
