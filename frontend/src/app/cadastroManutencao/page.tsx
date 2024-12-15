@@ -4,6 +4,7 @@ import CustomTextField from "../components/customtextfield";
 import { Aside } from "../components/aside";
 import Button from "@mui/material/Button";
 import React from "react";
+import api from "../../config/axiosConfigManutencao";
 
 export default function MaintenanceRegistrationForm() {
   const [formData, setFormData] = React.useState({
@@ -14,6 +15,19 @@ export default function MaintenanceRegistrationForm() {
     dataHoraFim: "",
     equipeResponsavel: "",
   });
+
+  // Mock dos carros e equipes
+  const carros = [
+    { value: "toyota_corolla", label: "Toyota Corolla" },
+    { value: "honda_civic", label: "Honda Civic" },
+    { value: "nissan_altima", label: "Nissan Altima" },
+  ];
+
+  const equipes = [
+    { value: "equipe1", label: "Equipe 1" },
+    { value: "equipe2", label: "Equipe 2" },
+    { value: "equipe3", label: "Equipe 3" },
+  ];
 
   const handleChange = (e: { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
@@ -26,6 +40,15 @@ export default function MaintenanceRegistrationForm() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log("Dados do formulário enviados:", formData);
+
+    // Envia os dados via POST para a API
+    api.post("api/manutencao", formData)
+      .then((response) => {
+        console.log("Manutenção criada com sucesso", response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao criar manutenção", error);
+      });
   };
 
   const handleClear = () => {
@@ -38,18 +61,6 @@ export default function MaintenanceRegistrationForm() {
       equipeResponsavel: "",
     });
   };
-
-  const carros = [
-    { value: "toyota_corolla", label: "Toyota Corolla" },
-    { value: "honda_civic", label: "Honda Civic" },
-    { value: "nissan_altima", label: "Nissan Altima" },
-  ];
-
-  const equipes = [
-    { value: "equipe1", label: "Equipe 1" },
-    { value: "equipe2", label: "Equipe 2" },
-    { value: "equipe3", label: "Equipe 3" },
-  ];
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -81,7 +92,7 @@ export default function MaintenanceRegistrationForm() {
           name="carro"
           value={formData.carro}
           onChange={handleChange}
-          options={carros} 
+          options={carros}  // Carros mockados
         />
         <CustomTextField
           id="descricaoProblema"
@@ -120,7 +131,7 @@ export default function MaintenanceRegistrationForm() {
           name="equipeResponsavel"
           value={formData.equipeResponsavel}
           onChange={handleChange}
-          options={equipes} 
+          options={equipes}  // Equipes mockadas
         />
 
         <Box sx={{ display: "flex", gap: 2, mt: 2 }}>

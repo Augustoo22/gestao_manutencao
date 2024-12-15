@@ -9,89 +9,103 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import api from '../../config/axiosConfigManutencao'; // Certifique-se de que o caminho está correto para sua configuração Axios
 
-interface Maintenance {
-  idManutencao: number;
-  carro: string;
-  descricaoProblema: string;
-  dataHoraInicio: string;
-  dataHoraFim: string;
-  equipeResponsavel: string;
+interface Manutencao {
+  id: number;
+  descricao: string;
+  dataManutencao: string;
+  custo: string;
+  veiculoId: number;
 }
 
-const initialRows: Maintenance[] = [
-  { 
-    idManutencao: 1, 
-    carro: 'Toyota Corolla', 
-    descricaoProblema: 'Troca de óleo e revisão geral', 
-    dataHoraInicio: '2023-12-01T09:00', 
-    dataHoraFim: '2023-12-01T12:00', 
-    equipeResponsavel: 'Equipe 1' 
-  },
-  { 
-    idManutencao: 2, 
-    carro: 'Honda Civic', 
-    descricaoProblema: 'Substituição de pastilhas de freio', 
-    dataHoraInicio: '2023-11-15T10:30', 
-    dataHoraFim: '2023-11-15T11:45', 
-    equipeResponsavel: 'Equipe 2' 
-  },
-];
+const ManutencaoTable = () => {
+  const [manutencaoData, setManutencaoData] = React.useState<Manutencao[]>([]);
 
-export default function MaintenanceTable() {
-  const [rows, setRows] = React.useState<Maintenance[]>(initialRows);
+  // Função para carregar manutenções do backend
+  const fetchManutencao = async () => {
+    try {
+      const response = await api.get('/api/manutencao'); // Ajuste conforme necessário
+      console.log(response.data);  // Verifique a estrutura dos dados recebidos
+      setManutencaoData(response.data); // Armazena as manutenções no estado
+    } catch (error) {
+      console.error("Erro ao buscar manutenções:", error);
+    }
+  };
 
-  const handleEdit = (id: number) => {
+  // Função para editar uma manutenção
+  const handleEditManutencao = (id: number) => {
     console.log(`Editar manutenção com ID: ${id}`);
+    // Se estiver usando o React Router ou Next.js, prefira usar navegação de roteador
+    window.location.href = `/editarManutencao?id=${id}`;  // Ajuste conforme a sua rota
   };
 
-  const handleDelete = (id: number) => {
-    console.log(`Deletado manutenção com ID: ${id}`);
+  // Função para excluir uma manutenção
+  const handleDeleteManutencao = async (id: number) => {
+    try {
+      await api.delete(`/api/manutencao/${id}`); // Exclui a manutenção com o id
+      console.log(`Manutenção com ID ${id} excluída com sucesso`);
+      setManutencaoData(manutencaoData.filter((item) => item.id !== id)); // Atualiza a lista de manutenções
+    } catch (error) {
+      console.error("Erro ao excluir manutenção:", error);
+    }
   };
+
+  React.useEffect(() => {
+    fetchManutencao(); // Carrega as manutenções quando o componente for montado
+  }, []);
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="maintenance table">
+      <Table sx={{ minWidth: 650 }} aria-label="manutencao table">
         <TableHead>
           <TableRow>
-            <TableCell>ID da Manutenção</TableCell>
-            <TableCell>Carro</TableCell>
-            <TableCell>Descrição do Problema</TableCell>
-            <TableCell>Data e Hora de Início</TableCell>
-            <TableCell>Data e Hora de Fim</TableCell>
-            <TableCell>Equipe Responsável</TableCell>
+            <TableCell>ID</TableCell>
+            <TableCell>Descrição</TableCell>
+            <TableCell>Data da Manutenção</TableCell>
+            <TableCell>Custo</TableCell>
+            <TableCell>Veículo ID</TableCell>
             <TableCell>Ações</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((maintenance) => (
-            <TableRow key={maintenance.idManutencao}>
-              <TableCell>{maintenance.idManutencao}</TableCell>
-              <TableCell>{maintenance.carro}</TableCell>
-              <TableCell>{maintenance.descricaoProblema}</TableCell>
-              <TableCell>{maintenance.dataHoraInicio}</TableCell>
-              <TableCell>{maintenance.dataHoraFim}</TableCell>
-              <TableCell>{maintenance.equipeResponsavel}</TableCell>
-              <TableCell>
-                <Button
-                  variant="outlined"
-                  onClick={() => handleEdit(maintenance.idManutencao)}
-                  style={{ marginRight: '10px' }}
-                >
-                  Editar
-                </Button>
-                <Button
-                  variant="outlined"
-                  color="error"
-                  onClick={() => handleDelete(maintenance.idManutencao)}
-                >
-                  Excluir
-                </Button>
+          {manutencaoData.length > 0 ? (
+            manutencaoData.map((manutencao) => (
+              <TableRow key={manutencao.id}>
+                <TableCell>{manutencao.id}</TableCell>
+                <TableCell>{manutencao.descricao}</TableCell>
+                <TableCell>{manutencao.dataManutencao}</TableCell>
+                <TableCell>{manutencao.custo}</TableCell>
+                <TableCell>{manutencao.veiculoId}</TableCell>
+                <TableCell>
+                  <Button
+                    variant="outlined"
+                    onClick={() => handleEditManutencao(manutencao.id)}
+                    style={{ marginRight: '10px' }}
+                  >
+                    Editar
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => handleDeleteManutencao(manutencao.id)}
+                  >
+                    Excluir
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={6} align="center">
+                Nenhuma manutenção encontrada.
               </TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
     </TableContainer>
   );
-}
+};
+
+export default ManutencaoTable;
