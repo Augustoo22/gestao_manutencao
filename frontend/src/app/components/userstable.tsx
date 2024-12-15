@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 
 import * as React from 'react';
 import Table from '@mui/material/Table';
@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import axios from 'axios';
+import api from '../../config/axiosConfigUsuario';
 
 interface User {
   id: number;
@@ -27,7 +27,7 @@ const UsersTable = () => {
   // Função para carregar os usuários do backend
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5050/api/usuarios');
+      const response = await api.get('/api/usuarios');
       setRows(response.data); // Armazenar usuários no estado
     } catch (error) {
       console.error("Erro ao buscar usuários:", error);
@@ -46,9 +46,9 @@ const UsersTable = () => {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:5050/api/usuarios/${id}`);
+      await api.delete(`/api/usuarios/${id}`);
       console.log(`Usuário com ID ${id} excluído com sucesso`);
-      fetchUsers(); // Recarregar a lista de usuários
+      setRows(rows.filter((user) => user.id !== id)); // Atualizar a lista sem recarregar
     } catch (error) {
       console.error("Erro ao excluir usuário:", error);
     }
@@ -84,7 +84,7 @@ const UsersTable = () => {
                   variant="outlined"
                   onClick={() => handleEdit(user.id)}
                   style={{ marginRight: '10px' }}
-                  href={`/cadastro?id=${user.id}`}  // Redireciona para o cadastro de edição
+                  href={`/cadastro?id=${user.id}`} // Redireciona para o cadastro de edição
                 >
                   Editar
                 </Button>

@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import CustomTextField from '../components/customtextfield';  
 import { Aside } from '../components/aside'; 
 import Button from '@mui/material/Button';
-import api from '../../config/axiosConfig'; 
+import api from '../../config/axiosConfigPeca'; 
 
 export default function PartsRegistrationForm() {
   const [formData, setFormData] = React.useState({
