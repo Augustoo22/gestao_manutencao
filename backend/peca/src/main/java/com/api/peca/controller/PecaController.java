@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/pecas")
 public class PecaController {
 
