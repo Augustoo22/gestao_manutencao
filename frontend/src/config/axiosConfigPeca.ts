@@ -2,11 +2,7 @@ import axios from "axios";
 
 // Defina as URLs possíveis de sua API
 const apiURLs = {
-  port6060: "http://localhost:6060", // peca
-  // port8080: "http://localhost:8080", // carro
-  // port9090: "http://localhost:9090", // manutencao
-  // port7070: "http://localhost:7070", // equipe
-  // port5050: "http://localhost:5050", // usuario
+  port6060: "http://localhost:6060",
 };
 
 // Aqui você pode alterar a URL base dependendo da porta desejada
