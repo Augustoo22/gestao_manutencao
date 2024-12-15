@@ -1,8 +1,20 @@
 import React from 'react';
 import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
-import { RelatorioItem } from '../components/relatorioItem'; // Novo componente de relatório
+import { RelatorioItem } from '../components/relatorioItem';
 
-export function Relatorio({ navigation }) {
+interface RelatorioProps {
+  navigation: any; // Use o tipo adequado de navegação, dependendo da configuração
+}
+
+export function Relatorio({ navigation }: RelatorioProps) {
+  // Definindo os dados dos relatórios em um array
+  const relatorios = [
+    { title: "Máquina A", status: "Pendente", description: "Corte - Elevador" },
+    { title: "Máquina B", status: "Pendente", description: "Corte - Corredor" },
+    { title: "Máquina C", status: "Pendente", description: "Corte - Armazém" },
+    { title: "Máquina D", status: "Pendente", description: "Corte - Oficina" },
+    // Adicione mais itens conforme necessário
+  ];
 
   return (
     <View style={styles.container}>
@@ -15,41 +27,23 @@ export function Relatorio({ navigation }) {
 
       <ScrollView contentContainerStyle={styles.scrollContainer} style={styles.scrollViewBackground}>
         <Text style={styles.sectionTitle}>Manutenções Pendentes</Text>
-        
-        <RelatorioItem 
-          title="Máquina A" 
-          status="Pendente" 
-          description="Corte - Elevador" 
-          onPress={() => navigation.navigate('MaquinaDetalhes', { maquina: { title: "Máquina A", status: "Pendente", description: "Corte - Elevador" } })} 
-        />
-        
-        <RelatorioItem 
-          title="Máquina B" 
-          status="Pendente" 
-          description="Corte - Corredor" 
-          onPress={() => navigation.navigate('MaquinaDetalhes', { maquina: { title: "Máquina B", status: "Pendente", description: "Corte - Corredor" } })} 
-        />
-
-        <RelatorioItem 
-          title="Máquina A" 
-          status="Pendente" 
-          description="Corte - Elevador" 
-          onPress={() => navigation.navigate('MaquinaDetalhes', { maquina: { title: "Máquina A", status: "Pendente", description: "Corte - Elevador" } })} 
-        />
-        
-        <RelatorioItem 
-          title="Máquina B" 
-          status="Pendente" 
-          description="Corte - Corredor" 
-          onPress={() => navigation.navigate('MaquinaDetalhes', { maquina: { title: "Máquina B", status: "Pendente", description: "Corte - Corredor" } })} 
-        />
+        {relatorios.map((item, index) => (
+          <RelatorioItem
+            key={index}
+            title={item.title}
+            status={item.status}
+            description={item.description}
+            onPress={() =>
+              navigation.navigate('MaquinaDetalhes', {
+                maquina: { title: item.title, status: item.status, description: item.description },
+              })
+            }
+          />
+        ))}
       </ScrollView>
 
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Image
-          source={require('../image/backIcon.png')}
-          style={styles.backIcon}
-        />
+        <Image source={require('../image/backIcon.png')} style={styles.backIcon} />
       </TouchableOpacity>
     </View>
   );
@@ -59,8 +53,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#444444',
-    padding: 10,
-    justifyContent: 'center',
+    padding: 15,
+    justifyContent: 'flex-start',
   },
   title: {
     fontSize: 24,
@@ -80,13 +74,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 15,
     paddingVertical: 10,
-    paddingHorizontal: 5,
-    width: 350,  // Ajuste a largura do fundo branco
+    paddingHorizontal: 15,
     alignSelf: 'center',
-    marginBottom: 40, // Espaço para o botão voltar
+    marginBottom: 40,
+    width: '90%', // Usando uma largura dinâmica
   },
   scrollContainer: {
-    paddingHorizontal: 10,
     paddingBottom: 20,
   },
   sectionTitle: {
@@ -97,7 +90,7 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    bottom: 0,
+    bottom: 20,
     alignSelf: 'center',
   },
   backIcon: {
