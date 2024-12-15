@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 
 import * as React from 'react';
 import Table from '@mui/material/Table';
@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import api from '../../config/axiosConfigUsuario';
 
 interface User {
   id: number;
@@ -20,20 +21,37 @@ interface User {
   nivelAcesso: string;
 }
 
-const initialRows: User[] = [
-  { id: 1, nomeCompleto: 'João da Silva', username: 'joaodasilva', email: 'joao@exemplo.com', telefone: '1234-5678', cargo: 'Analista', nivelAcesso: 'Supervisor' },
-  { id: 2, nomeCompleto: 'Maria Oliveira', username: 'mariaoliveira', email: 'maria@exemplo.com', telefone: '8765-4321', cargo: 'Técnico', nivelAcesso: 'Funcionário' },
-];
+const UsersTable = () => {
+  const [rows, setRows] = React.useState<User[]>([]);
 
-export default function UsersTable() {
-  const [rows, setRows] = React.useState<User[]>(initialRows);
+  // Função para carregar os usuários do backend
+  const fetchUsers = async () => {
+    try {
+      const response = await api.get('/api/usuarios');
+      setRows(response.data); // Armazenar usuários no estado
+    } catch (error) {
+      console.error("Erro ao buscar usuários:", error);
+    }
+  };
+
+  // Carregar usuários quando o componente for montado
+  React.useEffect(() => {
+    fetchUsers();
+  }, []);
 
   const handleEdit = (id: number) => {
     console.log(`Editar usuário com ID: ${id}`);
+    // Redirecionar para a página de edição, passando o id, se necessário
   };
 
-  const handleDelete = (id: number) => {
-    console.log(`Excluir usuário com ID: ${id}`);
+  const handleDelete = async (id: number) => {
+    try {
+      await api.delete(`/api/usuarios/${id}`);
+      console.log(`Usuário com ID ${id} excluído com sucesso`);
+      setRows(rows.filter((user) => user.id !== id)); // Atualizar a lista sem recarregar
+    } catch (error) {
+      console.error("Erro ao excluir usuário:", error);
+    }
   };
 
   return (
@@ -66,7 +84,7 @@ export default function UsersTable() {
                   variant="outlined"
                   onClick={() => handleEdit(user.id)}
                   style={{ marginRight: '10px' }}
-                  href='/cadastro'
+                  href={`/cadastro?id=${user.id}`} // Redireciona para o cadastro de edição
                 >
                   Editar
                 </Button>
@@ -84,4 +102,6 @@ export default function UsersTable() {
       </Table>
     </TableContainer>
   );
-}
+};
+
+export default UsersTable;

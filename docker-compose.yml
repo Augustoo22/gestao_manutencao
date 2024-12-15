@@ -1,0 +1,157 @@
+version: '3.8'
+
+services:
+  # Backend - Carro
+  carro-app:
+    build:
+      context: ./backend/carro
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://carro-db:5432/veiculosdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456
+    depends_on:
+      - carro-db
+
+  carro-db:
+    image: postgres:15
+    container_name: postgres-carro
+    environment:
+      POSTGRES_DB: veiculosdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5437:5432"
+    volumes:
+      - carro_db_data:/var/lib/postgresql/data
+
+  # Backend - Usuario
+  usuario-app:
+    build:
+      context: ./backend/usuario
+      dockerfile: Dockerfile
+    ports:
+      - "5050:5050"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://usuario-db:5432/usuariosdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456
+    depends_on:
+      - usuario-db
+
+  usuario-db:
+    image: postgres:15
+    container_name: postgres-usuario
+    environment:
+      POSTGRES_DB: usuariosdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5436:5432"
+    volumes:
+      - usuario_db_data:/var/lib/postgresql/data
+
+  # Backend - Pecas
+  pecas-app:
+    build:
+      context: ./backend/peca
+      dockerfile: Dockerfile
+    ports:
+      - "6060:6060"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://pecas-db:5432/pecasdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456
+    depends_on:
+      - pecas-db
+
+  pecas-db:
+    image: postgres:15
+    container_name: postgres-pecas
+    environment:
+      POSTGRES_DB: pecasdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5435:5432"
+    volumes:
+      - pecas_db_data:/var/lib/postgresql/data
+
+  # Backend - Manutencao
+  manutencao-app:
+    build:
+      context: ./backend/manutencao
+      dockerfile: Dockerfile
+    ports:
+      - "9090:9090"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://manutencao-db:5432/manutencaodb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456
+    depends_on:
+      - manutencao-db
+
+  manutencao-db:
+    image: postgres:15
+    container_name: postgres-manutencao
+    environment:
+      POSTGRES_DB: manutencaodb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5434:5432"
+    volumes:
+      - manutencao_db_data:/var/lib/postgresql/data
+
+  # Backend - Equipe
+  equipe-app:
+    build:
+      context: ./backend/equipe
+      dockerfile: Dockerfile
+    ports:
+      - "7070:7070"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://equipe-db:5432/equipedb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456
+    depends_on:
+      - equipe-db
+
+  equipe-db:
+    image: postgres:15
+    container_name: postgres-equipe
+    environment:
+      POSTGRES_DB: equipedb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5433:5432"
+    volumes:
+      - equipe_db_data:/var/lib/postgresql/data
+
+  # Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - carro-app
+      - usuario-app
+      - pecas-app
+      - manutencao-app
+      - equipe-app
+
+networks:
+  default:
+    name: central-network
+
+volumes:
+  carro_db_data:
+  usuario_db_data:
+  pecas_db_data:
+  manutencao_db_data:
+  equipe_db_data:  # Adicionando o volume para equipe-db

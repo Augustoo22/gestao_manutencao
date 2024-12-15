@@ -1,5 +1,4 @@
 "use client";
-
 import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,6 +8,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import { format } from 'date-fns';
+import api from '../../config/axiosConfigEquipe';
 
 interface TableColumn {
   id: string;
@@ -55,7 +56,11 @@ function GenericTable<T extends { id: number }>({
           {rows.map((row) => (
             <TableRow key={row.id}>
               {columns.map((column) => (
-                <TableCell key={column.id}>{row[column.id as keyof T]}</TableCell>
+                <TableCell key={column.id}>
+                  {column.id === 'dataFormacao'
+                    ? format(new Date(row[column.id as keyof T] as string), 'dd/MM/yyyy')
+                    : String(row[column.id as keyof T])}
+                </TableCell>
               ))}
               <TableCell>
                 <Button
@@ -82,31 +87,35 @@ function GenericTable<T extends { id: number }>({
 }
 
 export default function TeamsTable() {
-  const [rows, setRows] = React.useState<Team[]>([
-    { 
-      id: 1, 
-      nomeEquipe: 'Equipe A', 
-      liderEquipe: 'Ana Silva', 
-      numeroMembros: 5, 
-      dataFormacao: '2022-01-15', 
-      areaAtuacao: 'Desenvolvimento' 
-    },
-    { 
-      id: 2, 
-      nomeEquipe: 'Equipe B', 
-      liderEquipe: 'Carlos Pereira', 
-      numeroMembros: 3, 
-      dataFormacao: '2023-03-22', 
-      areaAtuacao: 'Marketing' 
-    },
-  ]);
+  const [rows, setRows] = React.useState<Team[]>([]);
+
+  React.useEffect(() => {
+    // Carregar as equipes da API
+    api.get('/api/equipes')
+      .then((response) => {
+        setRows(response.data);
+      })
+      .catch((error) => {
+        console.error('Erro ao carregar equipes', error);
+      });
+  }, []);
 
   const handleEdit = (id: number) => {
     console.log(`Editar equipe com ID: ${id}`);
+    // Lógica de edição da equipe aqui
   };
 
   const handleDelete = (id: number) => {
     console.log(`Excluir equipe com ID: ${id}`);
+    // Deletar a equipe via API
+    api.delete(`/api/equipes/${id}`)
+      .then(() => {
+        // Atualiza a tabela após exclusão
+        setRows(rows.filter((row) => row.id !== id));
+      })
+      .catch((error) => {
+        console.error('Erro ao excluir equipe', error);
+      });
   };
 
   const columns: TableColumn[] = [

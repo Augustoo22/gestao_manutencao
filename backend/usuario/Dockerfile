@@ -1,26 +1,26 @@
-# Etapa 1: Imagem de build
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+# Use uma imagem base com Maven e JDK para o build
+FROM maven:3.9.4-eclipse-temurin-17 AS build
+
+# Diretório de trabalho no contêiner
 WORKDIR /app
 
-# Copiar o arquivo de projeto e restaurar as dependências
-COPY *.csproj ./
-RUN dotnet restore
+# Copiar o código fonte do projeto para o contêiner
+COPY . .
 
-# Copiar o resto do código e compilar
-COPY . ./
-RUN dotnet publish -c Release -o /app/publish
+# Executar o Maven para compilar o projeto e gerar o JAR
+RUN mvn clean package -DskipTests
 
-# Etapa 2: Imagem de runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+# Construir uma imagem leve para execução
+FROM eclipse-temurin:17-jdk-alpine
+
+# Diretório de trabalho no contêiner
 WORKDIR /app
-COPY --from=build /app/publish .
 
-# Configurar a porta para expor
-EXPOSE 80
-# EXPOSE 443
+# Copiar o JAR gerado para a imagem final
+COPY --from=build /app/target/usuario-0.0.1-SNAPSHOT.jar app.jar
 
-# Definir variável de ambiente para Development
-ENV ASPNETCORE_ENVIRONMENT=Development
+# Expor a porta em que o Spring Boot será executado
+EXPOSE 5050
 
-# Comando de entrada para rodar a aplicação
-ENTRYPOINT ["dotnet", "usuario.dll"]
+# Comando para rodar a aplicação
+ENTRYPOINT ["java", "-jar", "app.jar"]

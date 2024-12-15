@@ -1,66 +1,116 @@
 version: '3.8'
 
 services:
-  usuario:
-    image: usuario-app
-    build:
-      context: ./usuario
-      dockerfile: Dockerfile
-    ports:
-      - "8080:80"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    networks:
-      - my-network
-
-  carro:
-    image: carro-app
+  # Serviço para aplicação "Carro"
+  carro-app:
     build:
       context: ./carro
       dockerfile: Dockerfile
     ports:
-      - "5050:50"
+      - "8080:8080"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    networks:
-      - my-network
+      SPRING_DATASOURCE_URL: jdbc:postgresql://carro-db:5432/veiculosdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456
+    depends_on:
+      - carro-db
 
-  equipe:
-    image: equipe-app
+  carro-db:
+    image: postgres:15
+    container_name: postgres-carro
+    environment:
+      POSTGRES_DB: veiculosdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5437:5432"
+    volumes:
+      - carro_db_data:/var/lib/postgresql/data
+
+  # Serviço para aplicação "Usuario"
+  usuario-app:
     build:
-      context: ./equipe
+      context: ./usuario
       dockerfile: Dockerfile
     ports:
-      - "6060:60"
+      - "5050:5050"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    networks:
-      - my-network
+      SPRING_DATASOURCE_URL: jdbc:postgresql://usuario-db:5432/usuariosdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456
+    depends_on:
+      - usuario-db
 
-  manutencao:
-    image: manutencao-app
-    build:
-      context: ./manutencao
-      dockerfile: Dockerfile
-    ports:
-      - "4040:40"
+  usuario-db:
+    image: postgres:15
+    container_name: postgres-usuario
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    networks:
-      - my-network   
-    
-  peca:
-    image: peca-app
+      POSTGRES_DB: usuariosdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5436:5432"
+    volumes:
+      - usuario_db_data:/var/lib/postgresql/data
+
+  # Serviço para aplicação "Pecas"
+  pecas-app:
     build:
       context: ./peca
       dockerfile: Dockerfile
     ports:
-      - "7070:70"
+      - "6060:6060"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    networks:
-      - my-network    
+      SPRING_DATASOURCE_URL: jdbc:postgresql://pecas-db:5432/pecasdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456
+    depends_on:
+      - pecas-db
+
+  pecas-db:
+    image: postgres:15
+    container_name: postgres-pecas
+    environment:
+      POSTGRES_DB: pecasdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5435:5432"
+    volumes:
+      - pecas_db_data:/var/lib/postgresql/data
+
+  # Serviço para aplicação "Manutencao"
+  manutencao-app:
+    build:
+      context: ./manutencao
+      dockerfile: Dockerfile
+    ports:
+      - "9090:9090"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://manutencao-db:5432/manutencaodb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456
+    depends_on:
+      - manutencao-db
+
+  manutencao-db:
+    image: postgres:15
+    container_name: postgres-manutencao
+    environment:
+      POSTGRES_DB: manutencaodb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5434:5432"
+    volumes:
+      - manutencao_db_data:/var/lib/postgresql/data
 
 networks:
-  my-network:
-    driver: bridge
+  default:
+    name: central-network
+
+volumes:
+  carro_db_data:
+  usuario_db_data:
+  pecas_db_data:
+  manutencao_db_data:

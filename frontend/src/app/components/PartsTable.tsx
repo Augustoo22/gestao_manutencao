@@ -9,6 +9,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import { useRouter } from 'next/navigation'; // Para redirecionar entre páginas
+import api from '../../config/axiosConfigPeca';
 
 interface Part {
   id: number;
@@ -19,39 +21,44 @@ interface Part {
   fornecedor: string;
 }
 
-const initialRows: Part[] = [
-  { 
-    id: 1, 
-    nome: 'Filtro de Óleo', 
-    codigo: 'FO123', 
-    categoria: 'Filtros', 
-    quantidadeEstoque: 10, 
-    fornecedor: 'Fornecedor A' 
-  },
-  { 
-    id: 2, 
-    nome: 'Pastilha de Freio', 
-    codigo: 'PF456', 
-    categoria: 'Freios', 
-    quantidadeEstoque: 25, 
-    fornecedor: 'Fornecedor B' 
-  },
-];
-
 export default function PartsTable() {
-  const [rows, setRows] = React.useState<Part[]>(initialRows);
+  const [rows, setRows] = React.useState<Part[]>([]);
+  const router = useRouter(); // Hook para navegação entre páginas
 
-  const handleEdit = (id: number) => {
-    console.log(`Editar peça com ID: ${id}`);
+  // Função para carregar as peças da API
+  const fetchParts = async () => {
+    try {
+      const response = await api.get('/api/pecas');
+      setRows(response.data); // Atualiza o estado com as peças
+    } catch (error) {
+      console.error('Erro ao buscar peças:', error);
+    }
   };
 
-  const handleDelete = (id: number) => {
-    console.log(`Deletar peça com ID: ${id}`);
+  React.useEffect(() => {
+    fetchParts(); // Carrega as peças ao montar o componente
+  }, []);
+
+  // Função para editar a peça
+  const handleEdit = (id: number) => {
+    // Redireciona para a página de cadastro com o ID na URL
+    router.push(`/cadastro-peca?id=${id}`);
+  };
+
+  // Função para deletar a peça
+  const handleDelete = async (id: number) => {
+    try {
+      await api.delete(`/api/pecas/${id}`);
+      setRows(rows.filter((part) => part.id !== id)); // Atualiza o estado removendo a peça deletada
+      console.log(`Peça com ID ${id} deletada`);
+    } catch (error) {
+      console.error('Erro ao deletar peça:', error);
+    }
   };
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="parts table">
+      <Table sx={{ minWidth: 650 }} aria-label="Tabela de Peças">
         <TableHead>
           <TableRow>
             <TableCell>ID</TableCell>

@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import CustomTextField from '../components/customtextfield';  
 import { Aside } from '../components/aside'; 
 import Button from '@mui/material/Button';
+import api from '../../config/axiosConfigPeca'; 
 
 export default function PartsRegistrationForm() {
   const [formData, setFormData] = React.useState({
@@ -25,7 +26,16 @@ export default function PartsRegistrationForm() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('Form data submitted:', formData);
+
+    // Enviar dados via POST para o backend usando axios
+    api.post("/api/pecas", formData)
+      .then(response => {
+        console.log("Peça registrada:", response.data);
+        handleClear();
+      })
+      .catch(error => {
+        console.error("Erro ao registrar peça:", error);
+      });
   };
 
   const handleClear = () => {
@@ -58,7 +68,7 @@ export default function PartsRegistrationForm() {
           p: 2,
           display: 'flex',
           flexDirection: 'column',
-          '& > :not(style)': { mb: 2, width: '80%' },  
+          '& > :not(style)': { mb: 2, width: '80%' },
         }}
         noValidate
         autoComplete="off"
@@ -113,7 +123,7 @@ export default function PartsRegistrationForm() {
               color: 'white',
               flex: 1,
               '&:hover': {
-                backgroundColor: '#d32f2f', 
+                backgroundColor: '#d32f2f',
               },
             }}
             type="submit"
@@ -127,7 +137,7 @@ export default function PartsRegistrationForm() {
               color: 'white',
               flex: 1,
               '&:hover': {
-                backgroundColor: '#424242', 
+                backgroundColor: '#424242',
               },
             }}
             onClick={handleClear}

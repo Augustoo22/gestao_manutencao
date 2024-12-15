@@ -1,20 +1,35 @@
-"use client"; 
-import Box from '@mui/material/Box';
-import CustomTextField from '../components/customtextfield';
-import { Aside } from '../components/aside';
-import Button from '@mui/material/Button';
+"use client";
+import Box from "@mui/material/Box";
+import CustomTextField from "../components/customtextfield";
+import { Aside } from "../components/aside";
+import Button from "@mui/material/Button";
+import React from "react";
+import api from "../../config/axiosConfigManutencao";
 
 export default function MaintenanceRegistrationForm() {
   const [formData, setFormData] = React.useState({
-    idManutencao: '',
-    carro: '',
-    descricaoProblema: '',
-    dataHoraInicio: '',
-    dataHoraFim: '',
-    equipeResponsavel: '',
+    idManutencao: "",
+    carro: "",
+    descricaoProblema: "",
+    dataHoraInicio: "",
+    dataHoraFim: "",
+    equipeResponsavel: "",
   });
 
-  const handleChange = (e: { target: { name: string; value: string; }; }) => {
+  // Mock dos carros e equipes
+  const carros = [
+    { value: "toyota_corolla", label: "Toyota Corolla" },
+    { value: "honda_civic", label: "Honda Civic" },
+    { value: "nissan_altima", label: "Nissan Altima" },
+  ];
+
+  const equipes = [
+    { value: "equipe1", label: "Equipe 1" },
+    { value: "equipe2", label: "Equipe 2" },
+    { value: "equipe3", label: "Equipe 3" },
+  ];
+
+  const handleChange = (e: { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -24,34 +39,31 @@ export default function MaintenanceRegistrationForm() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('Dados do formulário enviados:', formData);
+    console.log("Dados do formulário enviados:", formData);
+
+    // Envia os dados via POST para a API
+    api.post("api/manutencao", formData)
+      .then((response) => {
+        console.log("Manutenção criada com sucesso", response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao criar manutenção", error);
+      });
   };
 
   const handleClear = () => {
     setFormData({
-      idManutencao: '',
-      carro: '',
-      descricaoProblema: '',
-      dataHoraInicio: '',
-      dataHoraFim: '',
-      equipeResponsavel: '',
+      idManutencao: "",
+      carro: "",
+      descricaoProblema: "",
+      dataHoraInicio: "",
+      dataHoraFim: "",
+      equipeResponsavel: "",
     });
   };
 
-  const carros = [
-    { value: 'toyota_corolla', label: 'Toyota Corolla' },
-    { value: 'honda_civic', label: 'Honda Civic' },
-    { value: 'nissan_altima', label: 'Nissan Altima' },
-  ];
-
-  const equipes = [
-    { value: 'equipe1', label: 'Equipe 1' },
-    { value: 'equipe2', label: 'Equipe 2' },
-    { value: 'equipe3', label: 'Equipe 3' },
-  ];
-
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <Aside />
 
       <Box
@@ -60,9 +72,9 @@ export default function MaintenanceRegistrationForm() {
         sx={{
           flex: 1,
           p: 2,
-          display: 'flex',
-          flexDirection: 'column',
-          '& > :not(style)': { mb: 2, width: '80%' }, 
+          display: "flex",
+          flexDirection: "column",
+          "& > :not(style)": { mb: 2, width: "80%" },
         }}
         noValidate
         autoComplete="off"
@@ -73,7 +85,6 @@ export default function MaintenanceRegistrationForm() {
           name="idManutencao"
           value={formData.idManutencao}
           onChange={handleChange}
-          options={undefined}
         />
         <CustomTextField
           id="carro"
@@ -81,7 +92,7 @@ export default function MaintenanceRegistrationForm() {
           name="carro"
           value={formData.carro}
           onChange={handleChange}
-          options={carros}
+          options={carros}  // Carros mockados
         />
         <CustomTextField
           id="descricaoProblema"
@@ -90,6 +101,7 @@ export default function MaintenanceRegistrationForm() {
           value={formData.descricaoProblema}
           onChange={handleChange}
           multiline
+          rows={4}
         />
         <CustomTextField
           id="dataHoraInicio"
@@ -104,7 +116,7 @@ export default function MaintenanceRegistrationForm() {
         />
         <CustomTextField
           id="dataHoraFim"
-          label="Data e Hora de Fim(Previsto)"
+          label="Data e Hora de Fim (Previsto)"
           type="datetime-local"
           name="dataHoraFim"
           value={formData.dataHoraFim}
@@ -119,18 +131,18 @@ export default function MaintenanceRegistrationForm() {
           name="equipeResponsavel"
           value={formData.equipeResponsavel}
           onChange={handleChange}
-          options={equipes}
+          options={equipes}  // Equipes mockadas
         />
 
-        <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+        <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
           <Button
             variant="contained"
             sx={{
-              backgroundColor: 'red',
-              color: 'white',
+              backgroundColor: "red",
+              color: "white",
               flex: 1,
-              '&:hover': {
-                backgroundColor: '#d32f2f',
+              "&:hover": {
+                backgroundColor: "#d32f2f",
               },
             }}
             type="submit"
@@ -140,11 +152,11 @@ export default function MaintenanceRegistrationForm() {
           <Button
             variant="contained"
             sx={{
-              backgroundColor: 'black',
-              color: 'white',
+              backgroundColor: "black",
+              color: "white",
               flex: 1,
-              '&:hover': {
-                backgroundColor: '#424242',
+              "&:hover": {
+                backgroundColor: "#424242",
               },
             }}
             onClick={handleClear}
