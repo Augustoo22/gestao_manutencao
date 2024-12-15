@@ -1,5 +1,4 @@
 "use client";
-
 import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,8 +9,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { format } from 'date-fns';
+import api from '../../config/axiosConfigEquipe';
 
-// Tipos para colunas e dados
 interface TableColumn {
   id: string;
   label: string;
@@ -27,7 +26,6 @@ interface Team {
   areaAtuacao: string;
 }
 
-// Tipos genéricos para a tabela
 interface GenericTableProps<T> {
   rows: T[];
   columns: TableColumn[];
@@ -35,7 +33,6 @@ interface GenericTableProps<T> {
   onDelete: (id: number) => void;
 }
 
-// Componente Tabela Genérica
 function GenericTable<T extends { id: number }>({
   rows,
   columns,
@@ -62,7 +59,7 @@ function GenericTable<T extends { id: number }>({
                 <TableCell key={column.id}>
                   {column.id === 'dataFormacao'
                     ? format(new Date(row[column.id as keyof T] as string), 'dd/MM/yyyy')
-                    : String(row[column.id as keyof T])} {/* Garantir que o valor seja sempre um string */}
+                    : String(row[column.id as keyof T])}
                 </TableCell>
               ))}
               <TableCell>
@@ -89,26 +86,19 @@ function GenericTable<T extends { id: number }>({
   );
 }
 
-// Componente da Tabela de Equipes
 export default function TeamsTable() {
-  const [rows, setRows] = React.useState<Team[]>([
-    { 
-      id: 1, 
-      nomeEquipe: 'Equipe A', 
-      liderEquipe: 'Ana Silva', 
-      numeroMembros: 5, 
-      dataFormacao: '2022-01-15', 
-      areaAtuacao: 'Desenvolvimento' 
-    },
-    { 
-      id: 2, 
-      nomeEquipe: 'Equipe B', 
-      liderEquipe: 'Carlos Pereira', 
-      numeroMembros: 3, 
-      dataFormacao: '2023-03-22', 
-      areaAtuacao: 'Marketing' 
-    },
-  ]);
+  const [rows, setRows] = React.useState<Team[]>([]);
+
+  React.useEffect(() => {
+    // Carregar as equipes da API
+    api.get('/api/equipes')
+      .then((response) => {
+        setRows(response.data);
+      })
+      .catch((error) => {
+        console.error('Erro ao carregar equipes', error);
+      });
+  }, []);
 
   const handleEdit = (id: number) => {
     console.log(`Editar equipe com ID: ${id}`);
@@ -117,8 +107,15 @@ export default function TeamsTable() {
 
   const handleDelete = (id: number) => {
     console.log(`Excluir equipe com ID: ${id}`);
-    // Lógica de exclusão da equipe aqui
-    setRows(rows.filter(row => row.id !== id)); // Atualiza a tabela após exclusão
+    // Deletar a equipe via API
+    api.delete(`/api/equipes/${id}`)
+      .then(() => {
+        // Atualiza a tabela após exclusão
+        setRows(rows.filter((row) => row.id !== id));
+      })
+      .catch((error) => {
+        console.error('Erro ao excluir equipe', error);
+      });
   };
 
   const columns: TableColumn[] = [

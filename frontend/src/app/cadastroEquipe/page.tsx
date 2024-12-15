@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import CustomTextField from '../components/customtextfield';  
 import { Aside } from '../components/aside'; 
 import Button from '@mui/material/Button';
+import api from '../../config/axiosConfigEquipe'; // Importa a configuração do Axios
 
 export default function TeamRegistrationForm() {
   const [formData, setFormData] = React.useState({
@@ -25,6 +26,14 @@ export default function TeamRegistrationForm() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log('Form data submitted:', formData);
+
+    api.post('/api/equipes', formData)
+      .then((response) => {
+        console.log('Equipe criada:', response.data);
+      })
+      .catch((error) => {
+        console.error('Erro ao criar equipe', error);
+      });
   };
 
   const handleClear = () => {
