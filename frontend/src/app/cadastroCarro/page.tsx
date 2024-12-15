@@ -1,10 +1,11 @@
-"use client";  
+"use client";
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import CustomTextField from '../components/customtextfield';
 import { Aside } from '../components/aside';
 import Button from '@mui/material/Button';
+import api from '../../config/axiosConfigCarro'; // Aqui você está importando o api, use-o corretamente
 
 export default function CarRegistrationForm() {
   const [formData, setFormData] = React.useState({
@@ -27,9 +28,15 @@ export default function CarRegistrationForm() {
     });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('Form data submitted:', formData);
+    try {
+      // Agora você usa api.post() para enviar os dados
+      const response = await api.post('/api/veiculos', formData);  // Corrigido para usar o 'api'
+      console.log('Resposta da API:', response.data);  // Exibe a resposta da API no console
+    } catch (error) {
+      console.error('Erro ao enviar dados:', error);  // Exibe qualquer erro
+    }
   };
 
   const handleClear = () => {
@@ -57,8 +64,7 @@ export default function CarRegistrationForm() {
   const statusOptions = [
     { value: 'em_manutencao', label: 'Em Manutenção' },
     { value: 'fila_de_manutencao', label: 'Fila de Manutenção' },
-    { value: 'concluido', label: 'Concluido' },
-
+    { value: 'concluido', label: 'Concluído' },
   ];
 
   return (
@@ -73,7 +79,7 @@ export default function CarRegistrationForm() {
           p: 2,
           display: 'flex',
           flexDirection: 'column',
-          '& > :not(style)': { mb: 2, width: '80%' },  
+          '& > :not(style)': { mb: 2, width: '80%' },
         }}
         noValidate
         autoComplete="off"
@@ -168,7 +174,7 @@ export default function CarRegistrationForm() {
               color: 'white',
               flex: 1,
               '&:hover': {
-                backgroundColor: '#d32f2f', 
+                backgroundColor: '#d32f2f',
               },
             }}
             type="submit"
@@ -182,7 +188,7 @@ export default function CarRegistrationForm() {
               color: 'white',
               flex: 1,
               '&:hover': {
-                backgroundColor: '#424242', 
+                backgroundColor: '#424242',
               },
             }}
             onClick={handleClear}
