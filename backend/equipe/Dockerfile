@@ -17,10 +17,10 @@ FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
 
 # Copiar o JAR gerado para a imagem final
-COPY --from=build /app/target/peca-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/equipe-0.0.1-SNAPSHOT.jar app.jar
 
 # Expor a porta em que o Spring Boot será executado
-EXPOSE 6060
+EXPOSE 7070
 
 # Comando para rodar a aplicação
 ENTRYPOINT ["java", "-jar", "app.jar"]

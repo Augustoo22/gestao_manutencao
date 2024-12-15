@@ -105,6 +105,32 @@ services:
     volumes:
       - manutencao_db_data:/var/lib/postgresql/data
 
+  # Backend - Equipe
+  equipe-app:
+    build:
+      context: ./backend/equipe
+      dockerfile: Dockerfile
+    ports:
+      - "7070:7070"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://equipe-db:5432/equipedb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456
+    depends_on:
+      - equipe-db
+
+  equipe-db:
+    image: postgres:15
+    container_name: postgres-equipe
+    environment:
+      POSTGRES_DB: equipedb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5433:5432"
+    volumes:
+      - equipe_db_data:/var/lib/postgresql/data
+
   # Frontend
   frontend:
     build:
@@ -117,6 +143,7 @@ services:
       - usuario-app
       - pecas-app
       - manutencao-app
+      - equipe-app
 
 networks:
   default:
@@ -127,3 +154,4 @@ volumes:
   usuario_db_data:
   pecas_db_data:
   manutencao_db_data:
+  equipe_db_data:  # Adicionando o volume para equipe-db
