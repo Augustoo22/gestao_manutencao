@@ -11,7 +11,7 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8081"}) // Correção da sintaxe da anotação
 @RequestMapping("/api/pecas")
 public class PecaController {
 

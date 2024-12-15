@@ -2,13 +2,13 @@ import axios from "axios";
 
 // Defina as URLs possíveis de sua API
 const apiURLs = {
-  port5050: "http://localhost:5050",
+  port6060: "http://localhost:6060",
 };
 
 // Aqui você pode alterar a URL base dependendo da porta desejada
-const selectedPort = "port5050";
+const selectedPort = "port6060";
 const api = axios.create({
-  baseURL: apiURLs[selectedPort], 
+  baseURL: apiURLs[selectedPort], // Altere dinamicamente com a porta desejada
   headers: {
     "Content-Type": "application/json",
   },

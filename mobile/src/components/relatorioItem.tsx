@@ -1,7 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-export function RelatorioItem({ title, status, description, onPress }) {
+interface RelatorioItemProps {
+  title: string;
+  status: string;
+  description: string;
+  onPress: () => void;
+}
+
+export function RelatorioItem({ title, status, description, onPress }: RelatorioItemProps) {
   return (
     <TouchableOpacity style={styles.itemContainer} onPress={onPress}>
       <View style={styles.itemContent}>
@@ -23,7 +30,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
-    elevation: 3,
+    elevation: 3, // Para Android
   },
   itemContent: {
     flex: 1,
